@@ -38,6 +38,22 @@ public class LiturgicalCalendar {
 
     }
 
+    private void BuildAdvent() {
+    }
+
+    private void BuildPentecost() {
+
+    }
+
+    private void BuildEaster() {
+    }
+
+    private void BuildLent() {
+    }
+
     private void BuildEpiphany() {
+        // epiphany is 1/6, and we already have it through fixed dates.
+        // we need to get
+
     }
 }
