@@ -11,6 +11,8 @@ public class LiturgicalCalendar {
     private int _ashWednesday;
     private int _pentecost;
     private int _firstAdvent;
+    private int _christmas = 358;
+    private int _newYearDayOfWeek;
     private int year;
 
     public LiturgicalCalendar(int year)
@@ -18,6 +20,11 @@ public class LiturgicalCalendar {
         // don't forget memorial day, labor day, Thanksgiving (Day and eve)
         this.year = year;
         _entries = new String[IsLeapYear()? 366:365];
+        Calendar gc = new GregorianCalendar();
+        gc.set(year, 0, 1);
+        _newYearDayOfWeek = gc.get(Calendar.DAY_OF_WEEK)-1;
+        if(IsLeapYear())
+            _christmas++;
         BuildYear();
     }
 
@@ -42,9 +49,61 @@ public class LiturgicalCalendar {
     }
 
     private void BuildAdvent() {
+        // Feast of St. Andrew is November 30. We want to find the closest Sunday, and that's Advent 1. If it falls on a
+        // Wednesday means the sunday before. The day is the 333rd day of the year (counting from 0) or 334th if a leap year
+        int stAndrew = IsLeapYear() ? 334: 333;
+
+        int totDays = stAndrew + _newYearDayOfWeek;
+        int modulo = totDays % 7;
+        int advent1 = -1;
+        if(modulo < 5)
+            advent1 = stAndrew - modulo;
+        else
+            advent1 = stAndrew + 7 - modulo;
+        _entries[advent1 - 7] = "Last Sunday in Pentecost";
+        _entries[advent1 - 6] = "Last Monday in Pentecost";
+        _entries[advent1 - 5] = "Last Tuesday in Pentecost";
+        _entries[advent1 - 4] = "Last Wednesday in Pentecost";
+        _entries[advent1 - 3] = "Last Thursday in Pentecost";
+        _entries[advent1 - 2] = "Last Friday in Pentecost";
+        _entries[advent1 - 1] = "Last Saturday in Pentecost";
+        _entries[advent1] = "First Sunday in Advent";
+        _firstAdvent = advent1;
+        for(int i = _firstAdvent; i < _christmas; i++)
+        {
+            if(_entries[i] == null || _entries[i] == "")
+            {
+                int weekSinceAdvent = (i-_firstAdvent) / 7 + 1;
+                _entries[i] = Nth(weekSinceAdvent) + WeekDay(i) + " in Advent";
+            }
+        }
+        for(int i = _christmas+1; i < (IsLeapYear()? 366:365); i++)
+        {
+            if(_entries[i] == null || _entries[i] == "")
+            {
+                int weekSinceChristmas = (i-_christmas) / 7 + 1;
+                _entries[i] = Nth(weekSinceChristmas) + WeekDay(i) + " of Christmas";
+            }
+        }
     }
 
     private void BuildPentecost() {
+        int pentecostEnd = _firstAdvent - 8;
+        _entries[_pentecost + 1] = "Pentecost Monday";
+        _entries[_pentecost + 2] = "Pentecost Tuesday";
+        _entries[_pentecost + 3] = "Pentecost Wednesday";
+        _entries[_pentecost + 4] = "Pentecost Thursday";
+        _entries[_pentecost + 5] = "Pentecost Friday";
+        _entries[_pentecost + 6] = "Pentecost Saturday";
+        _entries[_pentecost + 7] = "Holy Trinity Sunday";
+        for(int i = _pentecost+8; i < pentecostEnd; i++)
+        {
+            if(_entries[i] ==  null || _entries[i] == "") {
+                int weekSincePentecost = (i-_pentecost) / 7;
+                _entries[i] = Nth(weekSincePentecost) + WeekDay(i) + " after Pentecost";
+            }
+        }
+        System.out.println("ha");
     }
 
     private void BuildToPentecost() {
@@ -59,22 +118,20 @@ public class LiturgicalCalendar {
         _entries[_ashWednesday] = "Ash Wednesday";
         _entries[_ashWednesday - 3] = "Transfiguration";
         // ephiphany
-        gc.set(year, 0, 1);
-        int newYearDayOfWeek = gc.get(Calendar.DAY_OF_WEEK)-1; //between 0 and 6, Sun-Sat
         for(int i = 0; i < _ashWednesday - 3; i++)
         {
             int weekInYear = i/7;
             if(_entries[i] ==  null || _entries[i] == "")
             {
                 if(weekInYear == 0 && i < 6)
-                    _entries[i] = "Second " + WeekDay(i, newYearDayOfWeek) + " after Christmas";
-                else if(i < 13 && i > 6 && WeekDay(i, newYearDayOfWeek).equals("Sunday"))
+                    _entries[i] = "Second " + WeekDay(i) + " after Christmas";
+                else if(i < 13 && i > 6 && WeekDay(i).equals("Sunday"))
                     _entries[i] = "Baptism of Our Lord";
                 else
                 {
                     // ephiphany
                     int weekSinceEpiphany = (i-5) / 7;
-                    _entries[i] = Nth(weekSinceEpiphany) + WeekDay(i, newYearDayOfWeek) + " after Ephiphany";
+                    _entries[i] = Nth(weekSinceEpiphany) + WeekDay(i) + " after Ephiphany";
                 }
             }
         }
@@ -85,7 +142,7 @@ public class LiturgicalCalendar {
         {
             int weekInLent = (i - _ashWednesday+6) / 7;
             if(_entries[i] ==  null || _entries[i] == "") {
-                _entries[i] = Nth(weekInLent) + WeekDay(i, newYearDayOfWeek) + " of Lent";
+                _entries[i] = Nth(weekInLent) + WeekDay(i) + " of Lent";
             }
         }
         _entries[easterDayInYear - 7] = "Passion Sunday";
@@ -105,7 +162,7 @@ public class LiturgicalCalendar {
         {
             int weekafterEaster = (i - easterDayInYear) / 7 + 1;
             if(_entries[i] ==  null || _entries[i] == "") {
-                _entries[i] = Nth(weekafterEaster) + WeekDay(i, newYearDayOfWeek) + " of Easter";
+                _entries[i] = Nth(weekafterEaster) + WeekDay(i) + " of Easter";
             }
         }
         _pentecost = easterDayInYear + 49;
@@ -175,8 +232,8 @@ public class LiturgicalCalendar {
         return "Twenty-Ninth";
     }
 
-    private String WeekDay(int dayInYear, int newYearDayOfWeek) {
-        int totDays = dayInYear + newYearDayOfWeek;
+    private String WeekDay(int dayInYear) {
+        int totDays = dayInYear + _newYearDayOfWeek;
         int modulo = totDays % 7;
         switch (modulo)
         {
