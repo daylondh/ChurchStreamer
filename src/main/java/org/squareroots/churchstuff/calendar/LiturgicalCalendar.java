@@ -260,4 +260,8 @@ public class LiturgicalCalendar {
     {
         return _ashWednesday;
     }
+
+    public String LookupByDayInYear(int dayofyear) {
+        return _entries[dayofyear-1];
+    }
 }

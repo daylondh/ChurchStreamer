@@ -18,6 +18,12 @@ public class ObsHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void stop() {
+
+
     }
 
 }

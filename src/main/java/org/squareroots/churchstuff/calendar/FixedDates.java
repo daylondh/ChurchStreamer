@@ -11,7 +11,7 @@ public class FixedDates {
     }
 
     private void Populate() {
-        _dates.put(0, "New Year's Day");
+        _dates.put(0, "New Year'isSuccessful Day");
         _dates.put(5, "Epiphany");
         _dates.put(184, "Independence Day");
         _dates.put(303, "Reformation Day");
@@ -19,7 +19,7 @@ public class FixedDates {
         _dates.put(314, "Veterans Day");
         _dates.put(357, "Christmas Eve");
         _dates.put(358, "Christmas Day");
-        _dates.put(364, "New Year's Eve");
+        _dates.put(364, "New Year'isSuccessful Eve");
     }
 
     public String[] TransferDates(String[] input)
