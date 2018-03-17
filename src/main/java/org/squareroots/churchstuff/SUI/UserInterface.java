@@ -5,36 +5,34 @@ import org.squareroots.churchstuff.streamer.ObsHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
-public class UserInterface extends JPanel implements ActionListener  {
-    LiturgicalCalendar lc;
-    String title = "BLC ~/~/~ The ~ day of ~."; // TODO: 3/11/2018 RENAME THE STREAM HERE!!!
-    boolean isStreaming = false;
-    JButton startStream = new JButton("Start Streaming!");
-    JButton advanced = new JButton("Advanced...");
-
-
+public class UserInterface extends JPanel {
+    LiturgicalCalendar _liturgicalCalendar;
+    String _title = "BLC ~/~/~ The ~ day of ~.";
+    boolean _isStreaming = false;
+    JButton _buttonStartStream = new JButton("Start Streaming!");
+    JButton _buttonAdvanced = new JButton("Advanced...");
+    JButton _buttonName = new JButton("Name...");
 
 
+    public UserInterface(LiturgicalCalendar lc) {
+        _liturgicalCalendar = lc;
+    }
 
-    public void createAndShowGui() { //JPanel
-        GregorianCalendar gc = new GregorianCalendar();
-        int year = gc.get(GregorianCalendar.YEAR);
-        System.out.println(year);
-        lc = new LiturgicalCalendar(year);
-        title = lc.LookupByDayInYear(gc.get(Calendar.DAY_OF_YEAR));
+    public void createAndShowGui() {
+
+        BuildTitle();
         JPanel p = new JPanel(new GridBagLayout());
-        JLabel label = new JLabel(title);
+        JLabel label = new JLabel(_title);
         JFrame f = new JFrame("Stream");
 
-        startStream.addActionListener(this::actionPerformed1);
-        startStream.setSize(100,100);
-        startStream.setBackground(Color.green);
-        startStream.setForeground(Color.blue);
-        advanced.addActionListener(this::actionPerformed);
+        _buttonStartStream.addActionListener(this::startStreamButtonClicked);
+        _buttonStartStream.setSize(100, 100);
+        _buttonStartStream.setBackground(Color.green);
+        _buttonStartStream.setForeground(Color.blue);
+        _buttonAdvanced.addActionListener(this::advancedButtonClicked);
 
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
@@ -48,67 +46,67 @@ public class UserInterface extends JPanel implements ActionListener  {
         c.gridx = 0;
         c.gridy = 1;
 
-        p.add(startStream,c);
+        p.add(_buttonStartStream, c);
 
         c.gridx = 0;
         c.gridy = 2;
-        p.add(advanced,c);
+        //p.add(_buttonAdvanced, c);
 
         p.setVisible(true);
-        p.setBounds(100,100,1500,2000);
+        p.setBounds(100, 100, 1500, 2000);
 
 
-        f.setBounds(500,500,500,500);
+        f.setBounds(500, 500, 500, 500);
         f.add(p);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
 
 
-
-
-
-
-
-
     }
 
+    private void BuildTitle() {
+        String dateName = _liturgicalCalendar.LookupByDayInYear(Calendar.getInstance().get(Calendar.DAY_OF_YEAR));
+        String service = " Idunnoyet..."; // build a class to create or look this up
+        _title = dateName + service;
+    }
 
-    public void actionPerformed1(ActionEvent event) {
+    public void startStreamButtonClicked(ActionEvent event) {
 
         ObsHandler stream = new ObsHandler();
-        if (isStreaming) {
+        if (_isStreaming) {
             System.out.println("Stopping Stream...");
-            startStream.setText("Start Streaming");
-            startStream.setBackground(Color.green);
+            _buttonStartStream.setText("Start Streaming");
+            _buttonStartStream.setBackground(Color.green);
             stream.stop();
 
 
         } else {
             System.out.println("Starting stream...");
-            startStream.setText("Stop Streaming");
-            startStream.setBackground(Color.red);
+            _buttonStartStream.setText("Stop Streaming");
+            _buttonStartStream.setBackground(Color.red);
 
             stream.start();
         }
-        isStreaming = !isStreaming;
+        _isStreaming = !_isStreaming;
 
-        System.out.println("Streaming = " + isStreaming);
+        System.out.println("Streaming = " + _isStreaming);
     }
-    public void actionPerformed(ActionEvent event) {
+
+    public void advancedButtonClicked(ActionEvent event) {
         JFrame options = new JFrame("options");
-        JButton name = new JButton("Name...");
         JButton publicity = new JButton("Publicity...");
         JButton other = new JButton("Other...");
         JPanel optionLayout = new JPanel(new GridBagLayout());
-
-
         options.setVisible(true);
-        options.setBounds(400,400,400,400);
+        options.setBounds(400, 400, 400, 400);
         options.setLocationRelativeTo(null);
         options.add(optionLayout);
-        optionLayout.add(name);
+        optionLayout.add(_buttonName);
         optionLayout.add(publicity);
         optionLayout.add(other);
 
+
     }
+
+
 }
