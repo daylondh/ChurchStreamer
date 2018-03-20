@@ -3,3 +3,5 @@ build/
 .gradle/4.0/fileHashes/
 .gradle/4.0/taskHistory/
 lib/
+.idea/libraries/
+out/

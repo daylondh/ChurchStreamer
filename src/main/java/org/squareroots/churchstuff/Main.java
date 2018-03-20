@@ -16,10 +16,5 @@ public class Main {
         UIForm form = new UIForm(lc);
         form.Show();
 
-        // TODO: use this if you don't like my changes
-        //UserInterface ui = new UserInterface(lc);
-        //ui.createAndShowGui();
-
-
     }
 }
