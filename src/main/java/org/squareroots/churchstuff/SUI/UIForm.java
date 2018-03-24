@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 /**
  * Created by alexh on 3/14/2018.
  */
-public class UIForm {
+public class UIForm{
     private Color _defaultButtonColor;
     private JButton startStreamingButton;
     private JPanel panel1;
@@ -55,8 +55,7 @@ public class UIForm {
                     startStreamingButton.setText("Start Streaming");
                     startStreamingButton.setBackground(_defaultButtonColor);
                     stream.Stop();
-                    Application.e
-
+                    System.exit(0);
                 } else {
                     System.out.println("Starting stream...");
                     startStreamingButton.setText("Stop Streaming");
@@ -78,6 +77,7 @@ public class UIForm {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+        frame.setAlwaysOnTop(true);
         BuildTitle();
     }
 

@@ -102,7 +102,6 @@ public class LiturgicalCalendar {
                 _entries[i] = Nth(weekSincePentecost) + WeekDay(i) + " after Pentecost";
             }
         }
-        System.out.println("ha");
     }
 
     private void BuildToPentecost() {
