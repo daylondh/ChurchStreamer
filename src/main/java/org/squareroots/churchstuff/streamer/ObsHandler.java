@@ -7,8 +7,10 @@ import java.io.IOException;
  * Created by alexh on 3/1/2018.
  */
 public class ObsHandler {
+    Process p = null;
+
     public void start() {
-        Process p = null;
+
         ProcessBuilder pb = new ProcessBuilder();
         File directory = new File("C:\\Program Files (x86)\\obs-studio\\bin\\64bit");
         pb.command("C:\\Program Files (x86)\\obs-studio\\bin\\64bit\\obs64.exe","--startstreaming");
@@ -22,8 +24,6 @@ public class ObsHandler {
     }
 
     public void stop() {
-
-
+        p.destroy();
     }
-
 }

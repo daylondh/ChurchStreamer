@@ -1,6 +1,5 @@
 package org.squareroots.churchstuff.calendar;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -36,7 +35,7 @@ public class LiturgicalCalendar {
     {
         GregorianCalendar gc = new GregorianCalendar();
         gc.set(year, month, dayinmonth);
-        int dayOfYear = gc.get(GregorianCalendar.DAY_OF_YEAR);
+        int dayOfYear = gc.get(GregorianCalendar.DAY_OF_YEAR)-1;
         return _entries[dayOfYear];
     }
 

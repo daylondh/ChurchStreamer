@@ -5,3 +5,4 @@ build/
 lib/
 .idea/libraries/
 out/
+.gradle/4.0/fileContent/annotation-processors.bin
