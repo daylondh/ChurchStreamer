@@ -20,7 +20,7 @@ public class ObsHandler {
         }
         else
         {
-            pb.command("obs64", "--startstreaming");
+            pb.command("obs", "--startstreaming");
         }
         try {
          p = pb.start();
