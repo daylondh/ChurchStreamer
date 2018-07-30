@@ -1,5 +1,5 @@
 group 'ChurchStuff'
-version '1.0 BETA'
+version '1.1 BETA'
 
 apply plugin: 'java'
 

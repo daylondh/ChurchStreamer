@@ -1,15 +1,14 @@
 package org.squareroots.churchstuff.streamer;
 
-import org.squareroots.churchstuff.calendar.LiturgicalCalendar;
 import org.squareroots.churchstuff.youtube.live.CreateBroadcast;
 
 import java.io.IOException;
-import java.util.Calendar;
 
 public class StreamManager {
 
     CreateBroadcast cb = new CreateBroadcast();
     ObsHandler handler = new ObsHandler();
+
     String title;
     boolean isPublic = false;
 
