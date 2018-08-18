@@ -6,3 +6,4 @@ lib/
 .idea/libraries/
 out/
 .gradle/4.0/fileContent/annotation-processors.bin
+src/main/resources/client_secrets.json
