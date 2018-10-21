@@ -6,31 +6,46 @@ import java.io.IOException;
 /**
  * Created by alexh on 3/1/2018.
  */
-public class ObsHandler {
+public class ObsHandler { // TODO: 9/25/2018 Make StopStreaming actually work.
     Process p = null;
 
 
-    public void start() {
+    public void startStreaming() {
         boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
         ProcessBuilder pb = new ProcessBuilder();
-        if(isWindows) {
+        if (isWindows) {
             File directory = new File("C:\\Program Files (x86)\\obs-studio\\bin\\64bit");
             pb.command("C:\\Program Files (x86)\\obs-studio\\bin\\64bit\\obs64.exe", "--startstreaming");
             pb.directory(directory);
-        }
-        else
-        {
+        } else {
             pb.command("obs", "--startstreaming");
         }
         try {
-         p = pb.start();
+            p = pb.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void stop() {
-        p.destroy();
+    public void startRecording() {
+        boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
+        ProcessBuilder pb = new ProcessBuilder();
+        if (isWindows) {
+            File directory = new File("C:\\Program Files (x86)\\obs-studio\\bin\\64bit");
+            pb.command("C:\\Program Files (x86)\\obs-studio\\bin\\64bit\\obs64.exe", "--startrecording");
+            pb.directory(directory);
+        } else {
+            pb.command("obs", "--startrecording");
+        }
+        try {
+            p = pb.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
+
+    public void StopStreaming() {p.destroy();}
+    public void StopRecording() {p.destroy();}
 }

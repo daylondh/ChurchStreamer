@@ -78,7 +78,7 @@ public class ListBroadcasts {
                 System.out.println("  - Description: " + broadcast.getSnippet().getDescription());
                 System.out.println("  - Published At: " + broadcast.getSnippet().getPublishedAt());
                 System.out.println(
-                        "  - Scheduled Start Time: " + broadcast.getSnippet().getScheduledStartTime());
+                        "  - Scheduled StartStreaming Time: " + broadcast.getSnippet().getScheduledStartTime());
                 System.out.println(
                         "  - Scheduled End Time: " + broadcast.getSnippet().getScheduledEndTime());
                 System.out.println("\n-------------------------------------------------------------\n");

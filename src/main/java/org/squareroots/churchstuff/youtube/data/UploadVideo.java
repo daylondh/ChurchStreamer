@@ -52,16 +52,15 @@ public class UploadVideo {
      */
     private static final String VIDEO_FILE_FORMAT = "video/*";
 
-    private static final String SAMPLE_VIDEO_FILENAME = "sample-video.mp4";
+    private static final String SAMPLE_VIDEO_FILENAME = "Molly.mp4";
 
     /**
      * Upload the user-selected video to the user's YouTube channel. The code
      * looks for the video in the application's project folder and uses OAuth
      * 2.0 to authorize the API request.
      *
-     * @param args command line args (not used).
      */
-    public static void main(String[] args) {
+    public static void main(String args[]) {
 
         // This OAuth 2.0 access scope allows an application to upload files
         // to the authenticated user's YouTube channel, but doesn't allow
@@ -112,7 +111,7 @@ public class UploadVideo {
             videoObjectDefiningMetadata.setSnippet(snippet);
 
             InputStreamContent mediaContent = new InputStreamContent(VIDEO_FILE_FORMAT,
-                    UploadVideo.class.getResourceAsStream("/sample-video.mp4"));
+                    UploadVideo.class.getResourceAsStream("/Molly.mp4")); // TODO: 10/3/2018 Read an external file... OR Upload file to resources folder.
 
             // Insert the video. The command sends three arguments. The first
             // specifies which information the API request is setting and which

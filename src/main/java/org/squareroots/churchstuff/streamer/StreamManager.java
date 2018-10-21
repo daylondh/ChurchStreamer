@@ -18,10 +18,10 @@ public class StreamManager {
         this.isPublic = isPublic;
     }
 
-    public void Start()
+    public void StartStreaming()
     {
         cb.Go(title, isPublic);
-        handler.start();
+        handler.startStreaming();
         try {
             cb.WaitForActive();
             cb.TransitionToLive();
@@ -31,11 +31,22 @@ public class StreamManager {
             e.printStackTrace();
         }
     }
-
-    public void Stop()
+    public void StartRecording()
     {
-        // This stuff happens when you click "stop"
-        handler.stop();
+        handler.startRecording();
+
+    }
+    public void StopRecording()
+    {
+        // This stuff happens when you click "StopRecording"
+        handler.StopRecording();
+
+    }
+
+    public void StopStreaming()
+    {
+        // This stuff happens when you click "StopStreaming"
+        handler.StopStreaming();
         try {
             cb.TransitionToDone();
         } catch (IOException e) {

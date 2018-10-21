@@ -1,10 +1,6 @@
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.junit.Test;
 import org.squareroots.churchstuff.calendar.LiturgicalCalendar;
 import org.squareroots.churchstuff.streamer.ObsHandler;
-import org.squareroots.churchstuff.youtube.Auth;
 import org.squareroots.churchstuff.youtube.live.CreateBroadcast;
 
 import java.io.IOException;
@@ -20,10 +16,10 @@ public class YoutubeTests {
         LiturgicalCalendar lc = new LiturgicalCalendar(2018);
         String title = lc.LookupByDate(Calendar.MARCH, 23);
 
-        // This stuff happens when you click "start"
+        // This stuff happens when you click "startStreaming"
         cb.Go(title, false);
         ObsHandler handler = new ObsHandler();
-        handler.start();
+        handler.startStreaming();
         try {
             cb.WaitForActive();
             cb.TransitionToLive();
@@ -31,8 +27,8 @@ public class YoutubeTests {
 
             Thread.sleep(30000);
 
-            // This stuff happens when you click "stop"
-            handler.stop();
+            // This stuff happens when you click "StopStreaming"
+            handler.StopStreaming();
             cb.TransitionToDone();
 
             // and now everything's done!

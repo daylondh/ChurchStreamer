@@ -10,7 +10,7 @@ public class ObsTests {
     @Test
     public void ObsStartTest() {
         ObsHandler handler = new ObsHandler();
-        handler.start();
+        handler.startStreaming();
 
     }
 }

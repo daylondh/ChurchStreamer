@@ -61,7 +61,7 @@ public class CreateBroadcast {
             youtube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential)
                     .setApplicationName("Church Streamer").build();
 
-            // Create a snippet with the title and scheduled start and end
+            // Create a snippet with the title and scheduled startStreaming and end
             // times for the broadcast. Currently, those times are hard-coded.
             LiveBroadcastSnippet broadcastSnippet = new LiveBroadcastSnippet();
             broadcastSnippet.setTitle(broadcastTitle);
@@ -100,7 +100,7 @@ public class CreateBroadcast {
             System.out.println("  - Description: " + returnedBroadcast.getSnippet().getDescription());
             System.out.println("  - Published At: " + returnedBroadcast.getSnippet().getPublishedAt());
             System.out.println(
-                    "  - Scheduled Start Time: " + returnedBroadcast.getSnippet().getScheduledStartTime());
+                    "  - Scheduled StartStreaming Time: " + returnedBroadcast.getSnippet().getScheduledStartTime());
             System.out.println(
                     "  - Scheduled End Time: " + returnedBroadcast.getSnippet().getScheduledEndTime());
 
