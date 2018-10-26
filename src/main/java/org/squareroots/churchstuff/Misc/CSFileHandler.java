@@ -1,4 +1,4 @@
-package org.squareroots.churchstuff.SUI;
+package org.squareroots.churchstuff.Misc;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 public class CSFileHandler {
 
     private PrintWriter writer = null;
+    private String[] listOfFiles;
 
     public boolean checkForFile(File file, boolean makeFileIfFalse) { //call this function for
 
@@ -77,5 +78,54 @@ public class CSFileHandler {
         }
 
         return contentBuilder.toString();
+    }
+    public void scanDirectory(String directory) {
+
+        File folder = new File(directory);
+        listOfFiles = folder.list();
+
+
+    }
+
+    public String getNewFilePath(String directory) {
+
+        File folder = new File(directory);
+        String[] listOfFiles = folder.list();
+
+        String path = directory + "\\" +findDifferenceBetweenArrays(listOfFiles, this.listOfFiles );
+        System.out.println("Recorded file found at:" + path);
+        CSLogger.logData("Recorded file found at:" + path);
+
+        return path;
+    }
+
+
+
+    private String findDifferenceBetweenArrays(String[] largeArray, String[] smallArray) {
+        int indexOfLargeArray = 0;
+        while(indexOfLargeArray < largeArray.length) {
+            boolean containsString = smallArrayContains(largeArray[indexOfLargeArray], smallArray);
+
+            if(!containsString) {
+                System.out.println(largeArray[indexOfLargeArray] + " is the different one. From findDifferenceBetweenArrays function.");
+                return largeArray[indexOfLargeArray];}
+            else {indexOfLargeArray++;}
+
+        }
+        return null;
+    }
+    private boolean smallArrayContains(String whatToCheckFor, String[] smallArray) {
+        int indexOfSmallArray = 0;
+        while (indexOfSmallArray < smallArray.length) {
+
+
+            if (indexOfSmallArray >= smallArray.length) {
+                System.out.println(smallArray[indexOfSmallArray] + " Contains" + whatToCheckFor + " = false. From smallArrayContains function.");return false; }
+            if (smallArray[indexOfSmallArray].contains(whatToCheckFor)) {return true;}
+            else {indexOfSmallArray++;}
+
+        }
+
+        return false;
     }
 }

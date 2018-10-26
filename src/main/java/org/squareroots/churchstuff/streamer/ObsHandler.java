@@ -14,8 +14,10 @@ public class ObsHandler { // TODO: 9/25/2018 Make StopStreaming actually work.
         boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
         ProcessBuilder pb = new ProcessBuilder();
         if (isWindows) {
-            File directory = new File("C:\\Program Files (x86)\\obs-studio\\bin\\64bit");
-            pb.command("C:\\Program Files (x86)\\obs-studio\\bin\\64bit\\obs64.exe", "--startstreaming");
+          //  File directory = new File("C:\\Program Files (x86)\\obs-studio\\bin\\64bit");
+            //pb.command("C:\\Program Files (x86)\\obs-studio\\bin\\64bit\\obs64.exe", "--startstreaming");
+            File directory = new File("C:\\Program Files\\obs-studio\\bin\\64bit");
+            pb.command("C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe", "--startstreaming");
             pb.directory(directory);
         } else {
             pb.command("obs", "--startstreaming");
@@ -32,8 +34,11 @@ public class ObsHandler { // TODO: 9/25/2018 Make StopStreaming actually work.
         boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
         ProcessBuilder pb = new ProcessBuilder();
         if (isWindows) {
-            File directory = new File("C:\\Program Files (x86)\\obs-studio\\bin\\64bit");
-            pb.command("C:\\Program Files (x86)\\obs-studio\\bin\\64bit\\obs64.exe", "--startrecording");
+           // File directory = new File("C:\\Program Files (x86)\\obs-studio\\bin\\64bit");
+           // pb.command("C:\\Program Files (x86)\\obs-studio\\bin\\64bit\\obs64.exe", "--startrecording");
+            File directory = new File("C:\\Program Files\\obs-studio\\bin\\64bit");
+            pb.command("C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe", "--startrecording");
+
             pb.directory(directory);
         } else {
             pb.command("obs", "--startrecording");
@@ -48,4 +53,5 @@ public class ObsHandler { // TODO: 9/25/2018 Make StopStreaming actually work.
 
     public void StopStreaming() {p.destroy();}
     public void StopRecording() {p.destroy();}
+
 }

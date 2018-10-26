@@ -28,10 +28,10 @@ import java.util.Collection;
 import java.util.HashMap;
 
 
-public class Upload {
+public class Upload { //DON'T USE ME!!!!
 
     /** Application name. */
-    private static final String APPLICATION_NAME = "Upload";
+    private static final String APPLICATION_NAME = "Church Streamer";
 
     /** Directory to store user credentials for this application. */
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
@@ -70,7 +70,8 @@ public class Upload {
      */
     public static Credential authorize() throws IOException {
         // Load client secrets.
-        InputStream in = Upload.class.getResourceAsStream("/client_secret.json");
+        InputStream in =
+                Upload.class.getResourceAsStream("/client_secret.json");
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader( in ));
 
         // Build flow and trigger user authorization request.
@@ -100,7 +101,7 @@ public class Upload {
                 .build();
     }
 
-    public static void start(String videoPath) throws IOException {
+    public static void start(String videoPath, String streamName, String privacy) throws IOException {
 
 
         try {
@@ -115,7 +116,7 @@ public class Upload {
             VideoSnippet snippet = new VideoSnippet();
             snippet.set("categoryId", "22");
             snippet.set("description", "Description of uploaded video.");
-            snippet.set("title", "Test video upload");
+            snippet.set("title", streamName);
             VideoStatus status = new VideoStatus();
             status.set("privacyStatus", "private");
 
