@@ -1,5 +1,6 @@
 import org.junit.Test;
 import org.squareroots.churchstuff.Archive.OutdatedUI;
+import org.squareroots.churchstuff.SUI.DeveloperUI;
 import org.squareroots.churchstuff.calendar.LiturgicalCalendar;
 
 /**
@@ -13,7 +14,7 @@ public class UITest {
         // pick a year
         int year = 2020;
         LiturgicalCalendar lc = new LiturgicalCalendar(year);
-        OutdatedUI ui = new OutdatedUI(lc);
-        ui.createAndShowGui();
+        DeveloperUI dui = new DeveloperUI(lc);
+        dui.ShowSimple();
     }
 }

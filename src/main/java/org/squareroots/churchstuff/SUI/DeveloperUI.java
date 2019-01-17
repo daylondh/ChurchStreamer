@@ -22,7 +22,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Calendar;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
@@ -32,8 +32,8 @@ import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
  *
  * @author Alex Hooper, Daylond Hooper
  */
-public class UIForm {
-    String OAuthDirectory = System.getProperty("user.home") + "/" + ".oauth-credentials";
+public class DeveloperUI {
+    final String OAuthDirectory = System.getProperty("user.home") + "/" + ".oauth-credentials";
     // Classes
     private CSFileHandler csfh = new CSFileHandler();
     private StreamManager stream = new StreamManager();
@@ -43,10 +43,10 @@ public class UIForm {
     ObsHandler obshandler = new ObsHandler();
 
     // Files
-    String path = System.getProperty("user.home") + "\\ChurchStreamer\\preferences\\logs.txt";
-    File file = new File(path);
-    private File uiPrefFile = new File(System.getProperty("user.home") + "\\ChurchStreamer\\preferences\\UIPreferences.txt");
-    private File streamPrivFile = new File(System.getProperty("user.home") + "\\ChurchStreamer\\preferences\\StreamPrivacy.txt");
+    String logPath = System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\logs.log";
+    File logFile = new File(logPath);
+    private File uiPrefFile = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\UIPreferences.csdat");
+    private File streamPrivFile = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\StreamPrivacy.csdat");
 
     // Objects
     private Object publicStream = "Public";
@@ -57,23 +57,22 @@ public class UIForm {
     private Color _defaultButtonColor;
 
     // Strings
-    private String privacy;
+    private String privacy = "Public";
     private String title;
     public String content = csfh.fileToString(uiPrefFile.getPath());
 
     // Booleans
+    private boolean isDeveloper;
     private boolean isDark;
     private boolean _isStreaming;
     private boolean _isRecording;
     private boolean canStream = true; // TODO: 9/29/2018 Make boolean useful.
-    private boolean uploadWhenComplete = false;
+    private boolean uploadWhenComplete = true;
 
     // UI Components
     private JButton startStreamingButton;
     private JPanel panel1;
     private JTextField titleField;
-    private JButton TOUButton;
-    private JButton SetupGuide;
     private JComboBox privacyComboBox;
     private JCheckBox darkThemeCheckBox;
     private JLabel label2;
@@ -85,7 +84,7 @@ public class UIForm {
     private JLabel noticeLabel;
 
 
-    public UIForm(LiturgicalCalendar lc) {
+    public DeveloperUI(LiturgicalCalendar lc) {
         _liturgicalCalendar = lc;
         _defaultButtonColor = startStreamingButton.getBackground();
         titleField.getDocument().addDocumentListener(new DocumentListener() {
@@ -124,7 +123,7 @@ public class UIForm {
                     System.out.println("Starting stream...");
                     startStreamingButton.setText("StopStreaming Streaming");
                     startStreamingButton.setBackground(Color.red);
-                    privacy = String.valueOf(privacyComboBox.getSelectedItem());
+                    privacy = String.valueOf(privacyComboBox.getSelectedItem()); // FIXME: 12/29/2018 
                     if (privacy.equals("Public")) {                                 //U.D.S.P.
                         stream.init(title, true);
                         stream.StartStreaming();
@@ -137,34 +136,7 @@ public class UIForm {
                 _isStreaming = !_isStreaming;
             }
         });
-        TOUButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    Desktop desktop = Desktop.getDesktop();
-                    URI oURL = new URI("https://alexhooper.github.io/termsofuse.html");
-                    desktop.browse(oURL);
 
-                } catch (Exception e1) {
-                    CSLogger.logData("Error opening webpage.");
-                    System.out.println("Error.");
-
-                }
-            }
-        });
-        SetupGuide.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    Desktop desktop = Desktop.getDesktop();
-                    URI oURL = new URI("https://alexhooper.github.io/streamerguide.html");
-                    desktop.browse(oURL);
-                } catch (Exception e1) {
-                    CSLogger.logData("Error connecting to https://alexhooper.github.io/streamerguide.html.");
-                    System.out.println("Error.");
-                }
-            }
-        });
 
         darkThemeCheckBox.addActionListener(new ActionListener() {  //Makes themes determined by the user.
             @Override
@@ -191,10 +163,10 @@ public class UIForm {
             public void actionPerformed(ActionEvent e) {
 
                 if (privacyComboBox.getSelectedItem().equals(privateStream)) {
-                    csfh.writeToFile(streamPrivFile, "Private");
+                    csfh.writeToFile(streamPrivFile, "private");
                 }
                 if (privacyComboBox.getSelectedItem().equals(publicStream)) {
-                    csfh.writeToFile(streamPrivFile, "Public");
+                    csfh.writeToFile(streamPrivFile, "public");
                 }
             }
         });
@@ -211,6 +183,11 @@ public class UIForm {
                     CSLogger.logData("Recording stopped.");
                     System.out.println("Recording stopped");
                     if (uploadWhenComplete) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
                         String directory = csfh.getNewFilePath(System.getProperty("user.home") + "\\Videos");
                         UploadVideo.go(directory, title, privacy);
                     }
@@ -237,7 +214,7 @@ public class UIForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Desktop.getDesktop().open(file);
+                    Desktop.getDesktop().open(logFile);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -256,7 +233,7 @@ public class UIForm {
             public void windowClosing(WindowEvent we) {
                 String ObjButtons[] = {"Yes", "No"};
                 int PromptResult = JOptionPane.showOptionDialog(null,
-                        "Are you sure you want to exit?", "Online Examination System",
+                        "Are you sure you want to exit?", "Confirm Exit",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
                         ObjButtons, ObjButtons[1]);
                 if (PromptResult == 0) {
@@ -268,8 +245,29 @@ public class UIForm {
 
 
     /**
-     * FUNCTIONS
+     * METHODS
      */
+
+    private boolean isFirstTime(boolean promptIfTrue) {
+        File f = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer");
+
+        if (f.exists()) {
+            return false;
+        }
+
+        if (promptIfTrue && !f.exists()) {
+            String objButtons[] = {"Yes", "No."};
+            int promptResult = JOptionPane.showOptionDialog(null, "Welcome to ChurchStreamer! In order for ChurchStreamer to work" +
+                    "correctly, it must restart. Would you like to restart now?", "Welcome!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, objButtons, objButtons[1]);
+            if (promptResult == JOptionPane.YES_OPTION) {
+
+                System.exit(0);
+            }
+        }
+
+        return true;
+    }
+
 
     public void Show() {   //Makes all components show, and runs init method.
 
@@ -278,6 +276,7 @@ public class UIForm {
         frame.setBounds(panel1.getBounds());
         frame.add(panel1);
         frame.setVisible(true);
+
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -286,7 +285,7 @@ public class UIForm {
                 int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit? If you are recording, streaming, or uploading, there might be errors.", "Confirm exit", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
                 if (PromptResult == JOptionPane.YES_OPTION) {
                     if (_isRecording || _isStreaming) {
-                    obshandler.StopRecording();
+                        obshandler.StopRecording();
                     }
                     System.exit(0);
                 }
@@ -298,7 +297,41 @@ public class UIForm {
 
     }
 
+    public void ShowSimple() {
+        JFrame frame = new JFrame();
+        panel1.setBounds(700, 700, 700, 700);
+        frame.setBounds(panel1.getBounds());
+        frame.add(panel1);
+        frame.setVisible(true);
+        openLogsButton.setVisible(false);
+        darkThemeCheckBox.setVisible(false);
+        privacyComboBox.setVisible(false);
+        UploadToYTCheckBox.setVisible(false);
+        noticeLabel.setVisible(false);
+        startStreamingButton.setFont(new Font("Arial", Font.PLAIN, 40));
+        StartRecordingButton.setFont(new Font("Arial", Font.PLAIN, 35));
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                String ObjButtons[] = {"Exit", "Cancel"};
+                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit? If you are recording, streaming, or uploading, there might be errors.", "Confirm exit", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                if (PromptResult == JOptionPane.YES_OPTION) {
+                    if (_isRecording || _isStreaming) {
+                        obshandler.StopRecording();
+                    }
+                    System.exit(0);
+                }
+            }
+        });
+        frame.setLocationRelativeTo(null);
+
+        init();
+    }
+
+
     public void init() {
+        boolean isfirsttime = isFirstTime(false);
         csfh.checkForFile(streamPrivFile, true);
 
         csfh.checkForFile(uiPrefFile, true);
@@ -314,6 +347,18 @@ public class UIForm {
         stringToBool();
         applyThemes();
         ping();
+        if (isfirsttime) {
+            String objButtons[] = {"Yes", "No."};
+            int promptResult = JOptionPane.showOptionDialog(null, "Welcome to ChurchStreamer! In order for ChurchStreamer to work" +
+                    " correctly, it must restart. Would you like to restart now?", "Welcome!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, objButtons, objButtons[1]);
+            if (promptResult == JOptionPane.YES_OPTION) {
+
+                System.exit(0);
+            }
+
+
+        }
+
 
     }
 
@@ -325,22 +370,28 @@ public class UIForm {
             label1.setOpaque(true);
             label2.setOpaque(true);
             label3.setOpaque(true);
-            TOUButton.setOpaque(true);
-            SetupGuide.setOpaque(true);
             privacyComboBox.setOpaque(true);
 
-            panel1.setBackground(Color.DARK_GRAY);
-            label1.setBackground(Color.gray);
-            label2.setBackground(Color.gray);
-            label3.setBackground(Color.gray);
-            TOUButton.setBackground(Color.gray);
-            SetupGuide.setBackground(Color.gray);
+            panel1.setBackground(Color.darkGray);
+            label1.setBackground(Color.darkGray);
+            label1.setForeground(Color.gray);
+            label1.setFont(new Font("Arial", Font.PLAIN, 25));
+
+            label2.setBackground(Color.darkGray);
+            label2.setForeground(Color.gray);
+            label2.setFont(new Font("Arial", Font.PLAIN, 25));
+
+            label3.setBackground(Color.darkGray);
+            label3.setForeground(Color.gray);
+            label3.setFont(new Font("Arial", Font.PLAIN, 25));
             privacyComboBox.setBackground(Color.gray);
-            StartRecordingButton.setBackground(Color.blue);
+            StartRecordingButton.setBackground(new Color(0, 0, 80));
             UploadToYTCheckBox.setBackground(Color.gray);
             darkThemeCheckBox.setBackground(Color.gray);
-            titleField.setBackground(Color.blue);
-            startStreamingButton.setBackground(Color.blue);
+            titleField.setBackground(Color.gray);
+            titleField.setForeground(Color.black);
+            titleField.setFont(new Font("Arial", Font.PLAIN, 25));
+            startStreamingButton.setBackground(new Color(0, 0, 80));
             openLogsButton.setBackground(Color.gray);
             noticeLabel.setBackground(Color.gray);
             System.out.println("Dark theme on");
@@ -354,23 +405,24 @@ public class UIForm {
             label1.setOpaque(false);
             label2.setOpaque(false);
             label3.setOpaque(false);
-            TOUButton.setOpaque(false);
-            SetupGuide.setOpaque(false);
             privacyComboBox.setOpaque(false);
 
 
             panel1.setBackground(Color.WHITE);
             label1.setBackground(Color.white);
+            label1.setFont(new Font("Arial", Font.PLAIN, 25));
             label2.setBackground(Color.white);
+            label2.setFont(new Font("Arial", Font.PLAIN, 25));
             label3.setBackground(Color.white);
-            TOUButton.setBackground(Color.white);
-            SetupGuide.setBackground(Color.white);
+            label3.setFont(new Font("Arial", Font.PLAIN, 25));
+
             privacyComboBox.setBackground(Color.white);
-            StartRecordingButton.setBackground(Color.blue);
+            StartRecordingButton.setBackground(new Color(0, 0, 80));
             UploadToYTCheckBox.setBackground(Color.white);
             darkThemeCheckBox.setBackground(Color.white);
-            titleField.setBackground(Color.blue);
-            startStreamingButton.setBackground(Color.blue);
+            titleField.setBackground(Color.gray);
+            titleField.setFont(new Font("Arial", Font.PLAIN, 25));
+            startStreamingButton.setBackground(new Color(0, 0, 80));
             openLogsButton.setBackground(Color.white);
             noticeLabel.setBackground(Color.gray);
             System.out.println(content);
@@ -462,7 +514,9 @@ public class UIForm {
         Font startStreamingButtonFont = this.$$$getFont$$$(null, Font.BOLD, -1, startStreamingButton.getFont());
         if (startStreamingButtonFont != null) startStreamingButton.setFont(startStreamingButtonFont);
         startStreamingButton.setForeground(new Color(-1));
+        startStreamingButton.setSelected(false);
         startStreamingButton.setText("Start Streaming");
+        startStreamingButton.setVisible(true);
         panel1.add(startStreamingButton, new GridConstraints(15, 1, 3, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         titleField = new JTextField();
         titleField.setForeground(new Color(-1));
@@ -471,7 +525,7 @@ public class UIForm {
         label1 = new JLabel();
         label1.setHorizontalAlignment(0);
         label1.setHorizontalTextPosition(0);
-        label1.setText("Enter Stream Title:");
+        label1.setText("Enter Service Title:");
         label1.setVerticalAlignment(3);
         label1.setVerticalTextPosition(3);
         panel1.add(label1, new GridConstraints(0, 1, 1, 6, GridConstraints.ANCHOR_SOUTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -483,14 +537,11 @@ public class UIForm {
         label3.setText("Alex Hooper, (937) 929-0939 or Daylond Hooper, (937) 270-9432");
         panel1.add(label3, new GridConstraints(3, 1, 1, 6, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
-        panel1.add(spacer2, new GridConstraints(3, 0, 10, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel1.add(spacer2, new GridConstraints(3, 0, 8, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final Spacer spacer3 = new Spacer();
         panel1.add(spacer3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final Spacer spacer4 = new Spacer();
         panel1.add(spacer4, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        SetupGuide = new JButton();
-        SetupGuide.setText("Setup Guide");
-        panel1.add(SetupGuide, new GridConstraints(9, 1, 1, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer5 = new Spacer();
         panel1.add(spacer5, new GridConstraints(4, 1, 1, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         darkThemeCheckBox = new JCheckBox();
@@ -515,10 +566,7 @@ public class UIForm {
         panel1.add(noticeLabel, new GridConstraints(14, 5, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         openLogsButton = new JButton();
         openLogsButton.setText("Open Logs");
-        panel1.add(openLogsButton, new GridConstraints(6, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        TOUButton = new JButton();
-        TOUButton.setText("Terms Of Use");
-        panel1.add(TOUButton, new GridConstraints(8, 1, 1, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel1.add(openLogsButton, new GridConstraints(6, 1, 1, 5, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         privacyComboBox = new JComboBox();
         privacyComboBox.setEditable(false);
         panel1.add(privacyComboBox, new GridConstraints(10, 1, 1, 6, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));

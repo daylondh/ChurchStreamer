@@ -37,7 +37,6 @@ public class CSFileHandler {
         try {
             boolean success = new File(fileDirectory).mkdirs();
             System.out.println(file +" built.");
-            System.out.println("Directory construction completed? = "+ success);
             System.out.println("Finalizing encoding for " + file+ "...");
             writer = new PrintWriter(file, "UTF-8");
             System.out.println("Successfully created file.");
@@ -120,12 +119,31 @@ public class CSFileHandler {
 
 
             if (indexOfSmallArray >= smallArray.length) {
-                System.out.println(smallArray[indexOfSmallArray] + " Contains" + whatToCheckFor + " = false. From smallArrayContains function.");return false; }
+                System.out.println(smallArray[indexOfSmallArray] + " Contains" + whatToCheckFor + " = false. From smallArrayContains function.");
+                return false; }
             if (smallArray[indexOfSmallArray].contains(whatToCheckFor)) {return true;}
             else {indexOfSmallArray++;}
 
         }
 
         return false;
+    }
+
+    public void restoreDefault() {
+        try {
+            File file1 = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\StreamPrivacy.csdat");
+            File file2 = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\UIPreferences.csdat");
+            File file3 = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\logs.log");
+            File subdirectory = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences");
+            File directory = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer");
+            file1.delete();
+            file2.delete();
+            file3.delete();
+            subdirectory.delete();
+            directory.delete();
+        }
+    catch (Exception e) {
+        e.printStackTrace();
+    }
     }
 }

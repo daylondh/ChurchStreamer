@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class CSLogger {
     static CSFileHandler csfh = new CSFileHandler();
-    static File logFile = new File((System.getProperty("user.home") + "\\ChurchStreamer\\preferences\\logs.txt"));
+    static File logFile = new File((System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\logs.log"));
     public static void logData(String data) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime time = LocalDateTime.now();
@@ -22,5 +22,6 @@ public class CSLogger {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }

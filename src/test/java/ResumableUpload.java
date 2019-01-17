@@ -12,18 +12,21 @@
  * the License.
  */
 
-package org.squareroots.churchstuff.youtube.data;
-
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.googleapis.media.MediaHttpUploader;
 import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
+import com.google.api.client.http.HttpBackOffIOExceptionHandler;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.InputStreamContent;
+import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatus;
 import com.google.common.collect.Lists;
+import org.junit.Test;
 import org.squareroots.churchstuff.Misc.CSLogger;
 import org.squareroots.churchstuff.youtube.Auth;
 
@@ -33,6 +36,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.squareroots.churchstuff.youtube.Auth.HTTP_TRANSPORT;
+import static org.squareroots.churchstuff.youtube.Auth.JSON_FACTORY;
+
 /**
  * Upload a video to the authenticated user's channel. Use OAuth 2.0 to
  * authorize the request. Note that you must add your video files to the
@@ -40,7 +46,7 @@ import java.util.List;
  *
  * @author Jeremy Walker
  */
-public class UploadVideo {
+public class ResumableUpload {
 
     /**
      * Define a global instance of a Youtube object, which will be used
@@ -64,8 +70,10 @@ public class UploadVideo {
      * 2.0 to authorize the API request.
      *
      */
-    public static void go(final String PATH_TO_FILE, String title, String privacy) {
-        File file = new File(PATH_TO_FILE);
+    @Test
+    public void go() {
+        String title = "ResumableUpload";
+        String privacy = "Private";
 
         // This OAuth 2.0 access scope allows an application to upload files
         // to the authenticated user's YouTube channel, but doesn't allow
@@ -77,10 +85,17 @@ public class UploadVideo {
             Credential credential = Auth.authorize(scopes, "uploadvideo");
 
             // This object is used to make YouTube Data API requests.
-            youtube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential).setApplicationName(
-                    "Church Streamer").build();
+           // youtube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential).setApplicationName(
+             //       "Church Streamer").build(); //BLAME
 
-            System.out.println("Uploading: " + PATH_TO_FILE);
+            youtube = new YouTube(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
+                @Override
+                public void initialize(HttpRequest request) throws IOException {
+                    credential.initialize(request);
+                    request.setIOExceptionHandler(new HttpBackOffIOExceptionHandler(new ExponentialBackOff()));
+                }
+            });
+
 
             // Add extra information to the video before uploading.
             Video videoObjectDefiningMetadata = new Video();
@@ -108,7 +123,7 @@ public class UploadVideo {
             // Add the completed snippet object to the video resource.
             videoObjectDefiningMetadata.setSnippet(snippet);
 
-            InputStreamContent mediaContent = new InputStreamContent(VIDEO_FILE_FORMAT, new FileInputStream(PATH_TO_FILE));
+            InputStreamContent mediaContent = new InputStreamContent(VIDEO_FILE_FORMAT, ResumableUpload.class.getResourceAsStream("/Molly.mp4"));
 
             // Insert the video. The command sends three arguments. The first
             // specifies which information the API request is setting and which
@@ -143,7 +158,6 @@ public class UploadVideo {
                         case MEDIA_IN_PROGRESS:
                             System.out.println("Upload in progress");
                             System.out.println("Bytes Uploaded: " + uploader.getNumBytesUploaded()); // TODO: 10/21/2018 Divide file.length() by this number for percentage.
-                            System.out.println("Percentage: "+ file.length() / uploader.getNumBytesUploaded() + "%");
                             break;
                         case MEDIA_COMPLETE:
                             CSLogger.logData("Upload Completed!");
