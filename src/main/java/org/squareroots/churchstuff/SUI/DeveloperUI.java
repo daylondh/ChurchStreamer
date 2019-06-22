@@ -21,8 +21,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.URISyntaxException;
 import java.util.Calendar;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
@@ -43,11 +41,12 @@ public class DeveloperUI {
     ObsHandler obshandler = new ObsHandler();
 
     // Files
+    String basepath = System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences";
     String logPath = System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\logs.log";
     File logFile = new File(logPath);
     private File uiPrefFile = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\UIPreferences.csdat");
     private File streamPrivFile = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\StreamPrivacy.csdat");
-
+    private File mayStreamFile = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\MayStream.csdat");
     // Objects
     private Object publicStream = "Public";
     private Object privateStream = "Private";
@@ -62,11 +61,10 @@ public class DeveloperUI {
     public String content = csfh.fileToString(uiPrefFile.getPath());
 
     // Booleans
-    private boolean isDeveloper;
+    private boolean mayStream;
     private boolean isDark;
     private boolean _isStreaming;
     private boolean _isRecording;
-    private boolean canStream = true; // TODO: 9/29/2018 Make boolean useful.
     private boolean uploadWhenComplete = true;
 
     // UI Components
@@ -82,6 +80,8 @@ public class DeveloperUI {
     private JCheckBox UploadToYTCheckBox;
     private JButton openLogsButton;
     private JLabel noticeLabel;
+    private JCheckBox StreamingEnabled;
+    JFrame frame = new JFrame();
 
 
     public DeveloperUI(LiturgicalCalendar lc) {
@@ -100,7 +100,6 @@ public class DeveloperUI {
                 title = titleField.getText();
             }
 
-            ;
         });
 
         /**
@@ -114,16 +113,16 @@ public class DeveloperUI {
                 if (_isStreaming) {
                     CSLogger.logData("Stopping Stream...");
                     System.out.println("Stopping Stream...");
-                    startStreamingButton.setText("StartStreaming Streaming");
+                    startStreamingButton.setText("Click Here To Start Streaming");
                     startStreamingButton.setBackground(_defaultButtonColor);
                     stream.StopStreaming();
                     System.exit(0);
                 } else {
                     CSLogger.logData("Starting stream...");
                     System.out.println("Starting stream...");
-                    startStreamingButton.setText("StopStreaming Streaming");
+                    startStreamingButton.setText("Click Here To Stop Streaming");
                     startStreamingButton.setBackground(Color.red);
-                    privacy = String.valueOf(privacyComboBox.getSelectedItem()); // FIXME: 12/29/2018 
+                    privacy = String.valueOf(privacyComboBox.getSelectedItem()); // FIXME: 12/29/2018
                     if (privacy.equals("Public")) {                                 //U.D.S.P.
                         stream.init(title, true);
                         stream.StartStreaming();
@@ -138,92 +137,80 @@ public class DeveloperUI {
         });
 
 
-        darkThemeCheckBox.addActionListener(new ActionListener() {  //Makes themes determined by the user.
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                isDark = !isDark;
-                if (isDark) {
-                    applyThemes();
-                    darkThemeCheckBox.setSelected(true);
-                    String darktheme = "true";
-                    csfh.writeToFile(uiPrefFile, darktheme);
+        //Makes themes determined by the user.
+        darkThemeCheckBox.addActionListener(e -> {
+            isDark = !isDark;
+            if (isDark) {
+                applyThemes();
+                darkThemeCheckBox.setSelected(true);
+                String darktheme = "true";
+                csfh.writeToFile(uiPrefFile, darktheme);
 
-                }
+            }
 
-                if (!isDark) {
-                    applyThemes();
-                    darkThemeCheckBox.setSelected(false);
-                    String darktheme = "false";
-                    csfh.writeToFile(uiPrefFile, darktheme);
-                }
+            if (!isDark) {
+                applyThemes();
+                darkThemeCheckBox.setSelected(false);
+                String darktheme = "false";
+                csfh.writeToFile(uiPrefFile, darktheme);
             }
         });
-        privacyComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        privacyComboBox.addActionListener(e -> {
 
-                if (privacyComboBox.getSelectedItem().equals(privateStream)) {
-                    csfh.writeToFile(streamPrivFile, "private");
-                }
-                if (privacyComboBox.getSelectedItem().equals(publicStream)) {
-                    csfh.writeToFile(streamPrivFile, "public");
-                }
+            if (privacyComboBox.getSelectedItem().equals(privateStream)) {
+                csfh.writeToFile(streamPrivFile, "private");
+            }
+            if (privacyComboBox.getSelectedItem().equals(publicStream)) {
+                csfh.writeToFile(streamPrivFile, "public");
             }
         });
-        StartRecordingButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        StartRecordingButton.addActionListener(e -> {
 
-                if (_isRecording) {
-                    CSLogger.logData("Stopping recording....");
-                    System.out.println("Stopping Recording...");
-                    StartRecordingButton.setText("Start Recording");
-                    StartRecordingButton.setBackground(_defaultButtonColor);
-                    stream.StopRecording();
-                    CSLogger.logData("Recording stopped.");
-                    System.out.println("Recording stopped");
-                    if (uploadWhenComplete) {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e1) {
-                            e1.printStackTrace();
-                        }
-                        String directory = csfh.getNewFilePath(System.getProperty("user.home") + "\\Videos");
-                        UploadVideo.go(directory, title, privacy);
+            if (_isRecording) {
+                CSLogger.logData("Stopping recording....");
+                System.out.println("Stopping Recording...");
+                StartRecordingButton.setText("Recording Complete. This Button Will Be Re-Enabled Once The Service Is Uploaded");
+                StartRecordingButton.setBackground(_defaultButtonColor);
+                StartRecordingButton.setEnabled(false);
+                stream.StopRecording();
+                CSLogger.logData("Recording stopped.");
+                System.out.println("Recording stopped");
+                if (uploadWhenComplete) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
                     }
-
-
-                    System.exit(0);
-                } else {
-                    CSLogger.logData("Starting recording...");
-                    System.out.println("Starting Recording...");
-                    StartRecordingButton.setText("Recording");
-                    StartRecordingButton.setBackground(Color.red);
-                    stream.StartRecording();
-                    csfh.scanDirectory(System.getProperty("user.home") + "\\Videos");
-                    CSLogger.logData("Recording started.");
-                    System.out.println("Recording started.");
-
-
+                    String directory = csfh.getNewFilePath(System.getProperty("user.home") + "\\Videos");
+                    UploadVideo.go(directory, title, privacy);
                 }
-                _isRecording = !_isRecording;
+                StartRecordingButton.setText("Click To Start Recording");
+                StartRecordingButton.setEnabled(true);
+
+
+            } else {
+                StartRecordingButton.setText("Click To Stop Recording");
+                StartRecordingButton.setBackground(Color.red);
+                stream.StartRecording();
+                csfh.scanDirectory(System.getProperty("user.home") + "\\Videos");
+
+
             }
-
+            _isRecording = !_isRecording;
         });
-        openLogsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    Desktop.getDesktop().open(logFile);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+        openLogsButton.addActionListener(e -> {
+            try {
+                Desktop.getDesktop().open(logFile);
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
         });
-        UploadToYTCheckBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                uploadWhenComplete = UploadToYTCheckBox.isSelected();
+        UploadToYTCheckBox.addActionListener(e -> uploadWhenComplete = UploadToYTCheckBox.isSelected());
+        StreamingEnabled.addActionListener(e -> {
+            if (StreamingEnabled.isSelected()) {
+                CSFileHandler.writeToFile(mayStreamFile, "true");
+            } else {
+                CSFileHandler.writeToFile(mayStreamFile, "false");
             }
         });
 
@@ -231,6 +218,7 @@ public class DeveloperUI {
 
             @Override
             public void windowClosing(WindowEvent we) {
+                frame.setAlwaysOnTop(false);
                 String ObjButtons[] = {"Yes", "No"};
                 int PromptResult = JOptionPane.showOptionDialog(null,
                         "Are you sure you want to exit?", "Confirm Exit",
@@ -238,6 +226,9 @@ public class DeveloperUI {
                         ObjButtons, ObjButtons[1]);
                 if (PromptResult == 0) {
                     System.exit(0);
+                }
+                else {
+                    frame.setAlwaysOnTop(true);
                 }
             }
         });
@@ -269,7 +260,7 @@ public class DeveloperUI {
     }
 
 
-    public void Show() {   //Makes all components show, and runs init method.
+    public void showDeveloper() {   //Makes all components show, and runs init method.
 
         JFrame frame = new JFrame();
         panel1.setBounds(700, 700, 700, 700);
@@ -281,13 +272,17 @@ public class DeveloperUI {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
+                frame.setAlwaysOnTop(false);
                 String ObjButtons[] = {"Exit", "Cancel"};
                 int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit? If you are recording, streaming, or uploading, there might be errors.", "Confirm exit", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
                 if (PromptResult == JOptionPane.YES_OPTION) {
                     if (_isRecording || _isStreaming) {
-                        obshandler.StopRecording();
+                        obshandler.stopRecording();
                     }
                     System.exit(0);
+                }
+                else {
+                    frame.setAlwaysOnTop(true);
                 }
             }
         });
@@ -297,8 +292,9 @@ public class DeveloperUI {
 
     }
 
-    public void ShowSimple() {
-        JFrame frame = new JFrame();
+    public void showSimple() {
+
+        frame.setAlwaysOnTop(true);
         panel1.setBounds(700, 700, 700, 700);
         frame.setBounds(panel1.getBounds());
         frame.add(panel1);
@@ -308,19 +304,26 @@ public class DeveloperUI {
         privacyComboBox.setVisible(false);
         UploadToYTCheckBox.setVisible(false);
         noticeLabel.setVisible(false);
+        StreamingEnabled.setVisible(false);
+
+
         startStreamingButton.setFont(new Font("Arial", Font.PLAIN, 40));
         StartRecordingButton.setFont(new Font("Arial", Font.PLAIN, 35));
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
+                frame.setAlwaysOnTop(false);
                 String ObjButtons[] = {"Exit", "Cancel"};
                 int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit? If you are recording, streaming, or uploading, there might be errors.", "Confirm exit", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
                 if (PromptResult == JOptionPane.YES_OPTION) {
                     if (_isRecording || _isStreaming) {
-                        obshandler.StopRecording();
+                        obshandler.stopRecording();
                     }
                     System.exit(0);
+                }
+                else {
+                    frame.setAlwaysOnTop(true);
                 }
             }
         });
@@ -330,11 +333,13 @@ public class DeveloperUI {
     }
 
 
-    public void init() {
+    private void init() {
         boolean isfirsttime = isFirstTime(false);
         csfh.checkForFile(streamPrivFile, true);
-
+        csfh.checkForFile(mayStreamFile, true);
         csfh.checkForFile(uiPrefFile, true);
+        getMayStream();
+
 
         BuildTitle();
         recallComboboxPrefrences();
@@ -346,8 +351,8 @@ public class DeveloperUI {
         panel1.setOpaque(true);
         stringToBool();
         applyThemes();
-        ping();
         if (isfirsttime) {
+            frame.setAlwaysOnTop(false);
             String objButtons[] = {"Yes", "No."};
             int promptResult = JOptionPane.showOptionDialog(null, "Welcome to ChurchStreamer! In order for ChurchStreamer to work" +
                     " correctly, it must restart. Would you like to restart now?", "Welcome!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, objButtons, objButtons[1]);
@@ -358,13 +363,14 @@ public class DeveloperUI {
 
 
         }
-
+        if (!mayStream) {
+            startStreamingButton.setVisible(false);
+        }
 
     }
 
 
     private void applyThemes() { //Applies the theme corresponding with the boolean isDark.
-        // TODO: 10/23/2018 Change color of log button and mke main buttons more prominent.
         if (isDark) {
             panel1.setOpaque(true);
             label1.setOpaque(true);
@@ -394,9 +400,6 @@ public class DeveloperUI {
             startStreamingButton.setBackground(new Color(0, 0, 80));
             openLogsButton.setBackground(Color.gray);
             noticeLabel.setBackground(Color.gray);
-            System.out.println("Dark theme on");
-            CSLogger.logData("Applied dark theme.");
-            System.out.println(content);
             darkThemeCheckBox.setSelected(true);
 
         }
@@ -425,9 +428,6 @@ public class DeveloperUI {
             startStreamingButton.setBackground(new Color(0, 0, 80));
             openLogsButton.setBackground(Color.white);
             noticeLabel.setBackground(Color.gray);
-            System.out.println(content);
-            CSLogger.logData("Applied light theme.");
-            System.out.println("Dark theme off");
             darkThemeCheckBox.setSelected(false);
         }
     }
@@ -444,6 +444,17 @@ public class DeveloperUI {
         }
     }
 
+    private void getMayStream() {
+        if (mayStreamFile.length() == 0) {
+            mayStream = true;
+        } else {
+            String mayStreamS = csfh.fileToString(basepath + "\\MayStream.csdat");
+
+            this.mayStream = mayStreamS.toLowerCase().contains("true");
+            StreamingEnabled.setSelected(this.mayStream);
+        }
+    }
+
     private void BuildTitle() {         //Places calendar data into JTextField
         String dateName = _liturgicalCalendar.LookupByDayInYear(Calendar.getInstance().get(Calendar.DAY_OF_YEAR));
         String service = _serviceCalculator.CalculateService(); // build a class to create or look this up
@@ -453,39 +464,13 @@ public class DeveloperUI {
 
     private void recallComboboxPrefrences() {
         if (csfh.fileToString(streamPrivFile).contains("Private")) {
-            System.out.println("Private Stream");
             privacyComboBox.getModel().setSelectedItem(privateStream);
 
         }
         if (csfh.fileToString(streamPrivFile).contains("Public")) {
-            System.out.println("Public stream");
             privacyComboBox.getModel().setSelectedItem(publicStream);
 
         }
-    }
-
-    private void ping() {
-
-        long currentTime = System.currentTimeMillis();
-        boolean isPinged = false; // 2 seconds
-        try {
-            isPinged = InetAddress.getByName("www.youtube.com").isReachable(2000);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        currentTime = System.currentTimeMillis() - currentTime;
-        if (isPinged) {
-            System.out.println("Pinged successfully in " + currentTime + " milliseconds");
-            CSLogger.logData("Pinged successfully in " + currentTime + " milliseconds");
-            if (currentTime > 200) {
-                canStream = false;
-            }
-
-        } else {
-            CSLogger.logData("Could not ping www.youtube.com");
-            System.out.println("Ping failed.");
-        }
-
     }
 
     {
@@ -515,7 +500,7 @@ public class DeveloperUI {
         if (startStreamingButtonFont != null) startStreamingButton.setFont(startStreamingButtonFont);
         startStreamingButton.setForeground(new Color(-1));
         startStreamingButton.setSelected(false);
-        startStreamingButton.setText("Start Streaming");
+        startStreamingButton.setText("Click To Start Streaming");
         startStreamingButton.setVisible(true);
         panel1.add(startStreamingButton, new GridConstraints(15, 1, 3, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         titleField = new JTextField();
@@ -553,7 +538,7 @@ public class DeveloperUI {
         StartRecordingButton = new JButton();
         StartRecordingButton.setForeground(new Color(-1));
         StartRecordingButton.setHideActionText(true);
-        StartRecordingButton.setText("Start Recording");
+        StartRecordingButton.setText("Click To Start Recording");
         panel1.add(StartRecordingButton, new GridConstraints(13, 3, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(0, -1), null, 0, false));
         final Spacer spacer7 = new Spacer();
         panel1.add(spacer7, new GridConstraints(13, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
@@ -570,6 +555,9 @@ public class DeveloperUI {
         privacyComboBox = new JComboBox();
         privacyComboBox.setEditable(false);
         panel1.add(privacyComboBox, new GridConstraints(10, 1, 1, 6, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        StreamingEnabled = new JCheckBox();
+        StreamingEnabled.setText("Enable Streaming");
+        panel1.add(StreamingEnabled, new GridConstraints(12, 5, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

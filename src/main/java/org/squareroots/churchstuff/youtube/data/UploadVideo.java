@@ -18,12 +18,18 @@ import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.googleapis.media.MediaHttpUploader;
 import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
+import com.google.api.client.http.HttpBackOffIOExceptionHandler;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.InputStreamContent;
+import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatus;
 import com.google.common.collect.Lists;
+import org.squareroots.churchstuff.Bulletins.CommandLineHandler;
+import org.squareroots.churchstuff.Bulletins.OnBulletinRecieved;
 import org.squareroots.churchstuff.Misc.CSLogger;
 import org.squareroots.churchstuff.youtube.Auth;
 
@@ -32,6 +38,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.squareroots.churchstuff.youtube.Auth.HTTP_TRANSPORT;
+import static org.squareroots.churchstuff.youtube.Auth.JSON_FACTORY;
 
 /**
  * Upload a video to the authenticated user's channel. Use OAuth 2.0 to
@@ -77,8 +86,13 @@ public class UploadVideo {
             Credential credential = Auth.authorize(scopes, "uploadvideo");
 
             // This object is used to make YouTube Data API requests.
-            youtube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential).setApplicationName(
-                    "Church Streamer").build();
+            youtube = new YouTube(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
+                @Override
+                public void initialize(HttpRequest request) throws IOException {
+                    credential.initialize(request);
+                    request.setIOExceptionHandler(new HttpBackOffIOExceptionHandler(new ExponentialBackOff()));
+                }
+            });
 
             System.out.println("Uploading: " + PATH_TO_FILE);
 
@@ -94,7 +108,28 @@ public class UploadVideo {
             // Most of the video's metadata is set on the VideoSnippet object.
             VideoSnippet snippet = new VideoSnippet();
             snippet.setTitle(title);
-            snippet.setDescription("A test upload Protocol of the SquareRoots ChurchStreamer"); // TODO: 10/21/2018 Add params that determine title and description
+            CommandLineHandler.getURL(new OnBulletinRecieved() {
+                @Override
+                public void doOnSuccess(String url) {
+                    snippet.setDescription("We are Bethlehem Lutheran Church, in Fairborn, OH. " +
+                            "Website: https://bethlehem7.org . " +
+                            "This service's bulletin: " + url +
+                            "Thank you for watching our services." +
+                            "Matthew 28:19 :  Therefore go and make" +
+                            " disciples of all nations, baptizing them " +
+                            "in the name of the Father and of the Son and of the Holy Spirit");
+                }
+
+                @Override
+                public void doOnFailure() {
+                    snippet.setDescription("We are Bethlehem Lutheran Church, in Fairborn, OH. " +
+                            "Website: https://bethlehem7.org . " +
+                            "Thank you for watching our services." +
+                            "Matthew 28:19 :  Therefore go and make" +
+                            " disciples of all nations, baptizing them " +
+                            "in the name of the Father and of the Son and of the Holy Spirit");
+                }
+            });
 
             // Set the keyword tags that you want to associate with the video.
             List<String> tags = new ArrayList<String>();
@@ -133,6 +168,7 @@ public class UploadVideo {
 
             MediaHttpUploaderProgressListener progressListener = new MediaHttpUploaderProgressListener() {
                 public void progressChanged(MediaHttpUploader uploader) throws IOException {
+                    double fileLength = file.length();
                     switch (uploader.getUploadState()) {
                         case INITIATION_STARTED:
                             System.out.println("Initiation Started");
@@ -143,7 +179,7 @@ public class UploadVideo {
                         case MEDIA_IN_PROGRESS:
                             System.out.println("Upload in progress");
                             System.out.println("Bytes Uploaded: " + uploader.getNumBytesUploaded()); // TODO: 10/21/2018 Divide file.length() by this number for percentage.
-                            System.out.println("Percentage: "+ file.length() / uploader.getNumBytesUploaded() + "%");
+                            System.out.println("Percentage: "+ fileLength / uploader.getNumBytesUploaded() + "%");
                             break;
                         case MEDIA_COMPLETE:
                             CSLogger.logData("Upload Completed!");

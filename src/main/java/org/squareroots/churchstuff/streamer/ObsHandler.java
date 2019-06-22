@@ -52,6 +52,6 @@ public class ObsHandler { // TODO: 9/25/2018 Make StopStreaming actually work.
     }
 
     public void StopStreaming() {p.destroy();}
-    public void StopRecording() {p.destroy();}
+    public void stopRecording() {p.destroy();}
 
 }

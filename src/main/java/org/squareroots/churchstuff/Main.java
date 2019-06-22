@@ -33,7 +33,7 @@ public class Main {
                 LiturgicalCalendar lc = new LiturgicalCalendar(year);
                 CreateBroadcast createBroadcast = new CreateBroadcast();
                 DeveloperUI form = new DeveloperUI(lc);
-                form.Show();
+                form.showDeveloper();
             }
         }
          else {
@@ -42,7 +42,7 @@ public class Main {
             LiturgicalCalendar lc = new LiturgicalCalendar(year);
             CreateBroadcast createBroadcast = new CreateBroadcast();
             DeveloperUI form = new DeveloperUI(lc);
-            form.ShowSimple();
+            form.showSimple();
         }
     }
 }

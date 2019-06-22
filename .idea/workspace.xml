@@ -2,25 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="29ff57b2-6c54-42da-9d11-9e756140eea6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/ChurchStreamer.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/Streamer.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ResumableUpload.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Bulletins/CommandLineHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Bulletins/OnBulletinRecieved.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/Broken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/CommandLineTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Streamer.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Streamer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Streamer.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/Streamer_main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Streamer_main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/Streamer_test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Streamer_test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/CSFileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/CSFileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/CSLogger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/CSLogger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/UIForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/UIForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/streamer/ObsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/streamer/ObsHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/streamer/StreamManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/streamer/StreamManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/data/UploadVideo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/data/UploadVideo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/UITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/UITest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UploadToYT.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -71,47 +70,56 @@
     <session id="1289059492">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
+          <entry key="project.closed" value="22" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.11" value="1" />
-          <entry key="project.open.time.12" value="2" />
+          <entry key="project.open.time.11" value="2" />
+          <entry key="project.open.time.12" value="3" />
           <entry key="project.open.time.14" value="1" />
-          <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.16" value="2" />
+          <entry key="project.open.time.19" value="1" />
+          <entry key="project.open.time.20" value="1" />
+          <entry key="project.open.time.24" value="1" />
+          <entry key="project.open.time.3" value="2" />
+          <entry key="project.open.time.4" value="3" />
+          <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.open.time.9" value="2" />
+          <entry key="project.opened" value="23" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="form" value="6" />
-          <entry key="gradle" value="1" />
-          <entry key="java" value="18" />
+          <entry key="class" value="1" />
+          <entry key="form" value="7" />
+          <entry key="gradle" value="2" />
+          <entry key="java" value="35" />
           <entry key="json" value="1" />
-          <entry key="txt" value="1" />
+          <entry key="txt" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="GUI_DESIGNER_FORM" value="6" />
-          <entry key="Groovy" value="1" />
-          <entry key="JAVA" value="18" />
+          <entry key="CLASS" value="1" />
+          <entry key="GUI_DESIGNER_FORM" value="7" />
+          <entry key="Groovy" value="2" />
+          <entry key="JAVA" value="35" />
           <entry key="JSON" value="1" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="PLAIN_TEXT" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="21" />
-          <entry key="gradle" value="6" />
-          <entry key="java" value="1517" />
+          <entry key="gradle" value="12" />
+          <entry key="java" value="4252" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Groovy" value="6" />
-          <entry key="JAVA" value="1517" />
+          <entry key="Groovy" value="12" />
+          <entry key="JAVA" value="4252" />
           <entry key="PLAIN_TEXT" value="21" />
         </counts>
       </usages-collector>
@@ -122,8 +130,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+            <state relative-caret-position="646">
+              <caret line="44" column="20" selection-start-line="44" selection-start-column="20" selection-end-line="44" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -131,8 +139,45 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1598">
-              <caret line="125" selection-start-line="125" selection-end-line="125" />
+            <state relative-caret-position="-4706">
+              <caret line="157" column="43" selection-start-line="157" selection-start-column="43" selection-end-line="157" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Bulletins/CommandLineHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="54" column="57" selection-start-line="54" selection-start-column="57" selection-end-line="54" selection-end-column="57" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Bulletins/OnBulletinRecieved.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="23" lean-forward="true" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/CommandLineTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="27" column="9" lean-forward="true" selection-start-line="18" selection-start-column="4" selection-end-line="27" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#458#459#0" expanded="true" />
+                <element signature="e#510#511#0" expanded="true" />
+                <element signature="e#576#577#0" expanded="true" />
+                <element signature="e#628#629#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -142,11 +187,11 @@
           <provider selected="true" editor-type-id="ui-designer" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/calendar/LiturgicalCalendar.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/data/UploadVideo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2244">
-              <caret line="135" column="33" selection-start-line="135" selection-start-column="33" selection-end-line="135" selection-end-column="33" />
+            <state relative-caret-position="306">
+              <caret line="117" column="29" selection-start-line="117" selection-start-column="29" selection-end-line="117" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -154,26 +199,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/CSFileHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/ResumableUpload.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="53" column="7" selection-start-line="53" selection-start-column="7" selection-end-line="53" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/data/UploadVideo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="35" column="3" selection-start-line="35" selection-start-column="3" selection-end-line="35" selection-end-column="3" />
+            <state relative-caret-position="1683">
+              <caret line="154" selection-start-line="154" selection-end-line="154" />
+              <folding>
+                <element signature="method#writeToFile#0;class#CSFileHandler#0" />
+                <element signature="method#scanDirectory#0;class#CSFileHandler#0" />
+                <element signature="method#getNewFilePath#0;class#CSFileHandler#0" />
+                <element signature="method#findDifferenceBetweenArrays#0;class#CSFileHandler#0" />
+                <element signature="method#smallArrayContains#0;class#CSFileHandler#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -183,6 +217,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="AnnotationType" />
         <option value="Class" />
       </list>
     </option>
@@ -202,6 +237,12 @@
       <find>blue</find>
       <find>enter str</find>
       <find>youtube = new You</find>
+      <find>exit</find>
+      <find>DO_NOT</find>
+      <find>CLOSE</find>
+      <find>windowclos</find>
+      <find>out</find>
+      <find>print</find>
     </findStrings>
     <replaceStrings>
       <replace>dark</replace>
@@ -393,9 +434,9 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="6157205330274" />
+        <entry key="$PROJECT_DIR$" value="6162006234410" />
         <entry key="$PROJECT_DIR$/.gradle" value="0" />
-        <entry key="$PROJECT_DIR$/build.gradle" value="295886760" />
+        <entry key="$PROJECT_DIR$/build.gradle" value="3355605680" />
         <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" value="566444372" />
         <entry key="$PROJECT_DIR$/settings.gradle" value="1525380993" />
       </map>
@@ -574,11 +615,17 @@
         <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/SimpleUI.java" />
         <option value="$PROJECT_DIR$/src/test/java/UITest.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.form" />
-        <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/data/UploadVideo.java" />
         <option value="$PROJECT_DIR$/src/test/java/ResumableUpload.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/Broken.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.form" />
+        <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/CSFileHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Bulletins/SheetsHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Bulletins/OnBulletinRecieved.java" />
+        <option value="$PROJECT_DIR$/src/test/java/CommandLineTests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Bulletins/CommandLineHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/data/UploadVideo.java" />
       </list>
     </option>
   </component>
@@ -633,7 +680,7 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="churchstuff" type="462c0819:PsiDirectoryNode" />
-              <item name="calendar" type="462c0819:PsiDirectoryNode" />
+              <item name="Bulletins" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Streamer" type="b2602c69:ProjectViewProjectNode" />
@@ -658,13 +705,6 @@
               <item name="Streamer" type="b2602c69:ProjectViewProjectNode" />
               <item name="ChurchStreamer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Streamer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ChurchStreamer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
@@ -678,20 +718,25 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="false" />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="179" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547399946813" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="251" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1561228638397" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../BulletinHandler/DatabaseHandler" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.25287357" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.squareroots.churchstuff.Misc" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.squareroots.churchstuff.SUI.SmallUI" />
     </key>
@@ -711,7 +756,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ResumableUpload">
+  <component name="RunManager" selected="Gradle.ChurchStreamer [fatJar]">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.squareroots.churchstuff.Main" />
       <module name="Streamer_main" />
@@ -743,6 +788,24 @@
       </ExternalSystemSettings>
       <method v="2" />
     </configuration>
+    <configuration name="CommandLineTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Streamer_test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CommandLineTests" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommandLineTests.getURL" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Streamer_test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CommandLineTests" />
+      <option name="METHOD_NAME" value="getURL" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ResumableUpload" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Streamer_test" />
       <option name="PACKAGE_NAME" value="" />
@@ -751,33 +814,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UITest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Streamer_test" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="UITest" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UITest.TestTheUI" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Streamer_test" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="UITest" />
-      <option name="METHOD_NAME" value="TestTheUI" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="Gradle.ChurchStreamer [fatJar]" />
-      <item itemvalue="JUnit.UITest.TestTheUI" />
-      <item itemvalue="JUnit.UITest" />
       <item itemvalue="JUnit.ResumableUpload" />
+      <item itemvalue="JUnit.CommandLineTests" />
+      <item itemvalue="JUnit.CommandLineTests.getURL" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CommandLineTests.getURL" />
+        <item itemvalue="JUnit.CommandLineTests" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Gradle.ChurchStreamer [fatJar]" />
         <item itemvalue="JUnit.ResumableUpload" />
       </list>
     </recent_temporary>
@@ -796,23 +845,42 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UITest_TestTheUI - 2018.12.29 at 15h 14m 49s.xml">
-      <configuration name="UITest.TestTheUI" configurationId="JUnit" />
+    <history-entry file="CommandLineTests - 2019.06.22 at 11h 30m 39s.xml">
+      <configuration name="CommandLineTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UITest - 2018.12.29 at 15h 25m 17s.xml">
-      <configuration name="UITest" configurationId="JUnit" />
+    <history-entry file="CommandLineTests_getURL - 2019.06.22 at 11h 30m 50s.xml">
+      <configuration name="CommandLineTests.getURL" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UITest - 2018.12.29 at 15h 25m 29s.xml">
-      <configuration name="UITest" configurationId="JUnit" />
+    <history-entry file="CommandLineTests_getURL - 2019.06.22 at 13h 20m 25s.xml">
+      <configuration name="CommandLineTests.getURL" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ResumableUpload - 2019.01.12 at 10h 24m 56s.xml">
-      <configuration name="ResumableUpload" configurationId="JUnit" />
+    <history-entry file="CommandLineTests_getURL - 2019.06.22 at 13h 22m 23s.xml">
+      <configuration name="CommandLineTests.getURL" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLineTests_getURL - 2019.06.22 at 14h 12m 21s.xml">
+      <configuration name="CommandLineTests.getURL" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLineTests_getURL - 2019.06.22 at 14h 15m 14s.xml">
+      <configuration name="CommandLineTests.getURL" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLineTests_getURL - 2019.06.22 at 14h 15m 22s.xml">
+      <configuration name="CommandLineTests.getURL" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLineTests_getURL - 2019.06.22 at 14h 15m 40s.xml">
+      <configuration name="CommandLineTests.getURL" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLineTests_getURL - 2019.06.22 at 14h 20m 16s.xml">
+      <configuration name="CommandLineTests.getURL" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLineTests_getURL - 2019.06.22 at 14h 20m 46s.xml">
+      <configuration name="CommandLineTests.getURL" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2751678" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24563758" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -821,7 +889,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32907802" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932885" weight="0.32907802" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932885" visible="true" weight="0.32907802" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -850,17 +918,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/ArgumentHandler.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/UIForm.form" />
     <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/SmallUI/UIForm.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/UIPreferences.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/SimplerUI.form" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Archive/OutdatedUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/SimpleUI.form" />
     <entry file="file://$PROJECT_DIR$/src/test/java/UploadToYT.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/SimpleUI.java" />
@@ -885,45 +943,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/data/Upload.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1180">
-          <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1598">
-          <caret line="125" selection-start-line="125" selection-end-line="125" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.form">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="ui-designer" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/calendar/LiturgicalCalendar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2244">
-          <caret line="135" column="33" selection-start-line="135" selection-start-column="33" selection-end-line="135" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/CanIAcessThisFlippinFile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -931,27 +950,141 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/data/UploadVideo.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/ResumableUpload.json" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/ResumableUpload.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="53" column="7" selection-start-line="53" selection-start-column="7" selection-end-line="53" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/calendar/EasterCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/calendar/LiturgicalCalendar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="135" column="33" selection-start-line="135" selection-start-column="33" selection-end-line="135" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/UIPreferences.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Archive/OutdatedUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="35" column="3" selection-start-line="35" selection-start-column="3" selection-end-line="35" selection-end-column="3" />
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/Broken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.oauth-client/google-oauth-client/1.23.0/e57ea1e2220bda5a2bd24ff17860212861f3c5cf/google-oauth-client-1.23.0.jar!/com/google/api/client/auth/oauth2/Credential.class" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="44" column="20" selection-start-line="44" selection-start-column="20" selection-end-line="44" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/CSFileHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        <state relative-caret-position="1683">
+          <caret line="154" selection-start-line="154" selection-end-line="154" />
+          <folding>
+            <element signature="method#writeToFile#0;class#CSFileHandler#0" />
+            <element signature="method#scanDirectory#0;class#CSFileHandler#0" />
+            <element signature="method#getNewFilePath#0;class#CSFileHandler#0" />
+            <element signature="method#findDifferenceBetweenArrays#0;class#CSFileHandler#0" />
+            <element signature="method#smallArrayContains#0;class#CSFileHandler#0" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ResumableUpload.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ResumableUpload.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Bulletins/SheetsHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="53" column="7" selection-start-line="53" selection-start-column="7" selection-end-line="53" selection-end-column="7" />
+        <state relative-caret-position="170">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/awt/event/ActionListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="49" column="16" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4706">
+          <caret line="157" column="43" selection-start-line="157" selection-start-column="43" selection-end-line="157" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Bulletins/OnBulletinRecieved.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="23" lean-forward="true" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/data/Upload.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1989">
+          <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.form">
+      <provider selected="true" editor-type-id="ui-designer" />
+      <provider editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/CommandLineTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="27" column="9" lean-forward="true" selection-start-line="18" selection-start-column="4" selection-end-line="27" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#458#459#0" expanded="true" />
+            <element signature="e#510#511#0" expanded="true" />
+            <element signature="e#576#577#0" expanded="true" />
+            <element signature="e#628#629#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Bulletins/CommandLineHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="54" column="57" selection-start-line="54" selection-start-column="57" selection-end-line="54" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/data/UploadVideo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="117" column="29" selection-start-line="117" selection-start-column="29" selection-end-line="117" selection-end-column="29" />
         </state>
       </provider>
     </entry>

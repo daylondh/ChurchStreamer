@@ -8,19 +8,15 @@ import java.util.stream.Stream;
 
 public class CSFileHandler {
 
-    private PrintWriter writer = null;
-    private String[] listOfFiles;
+    private static PrintWriter writer = null;
+    private static String[] listOfFiles;
 
-    public boolean checkForFile(File file, boolean makeFileIfFalse) { //call this function for
+    public static boolean checkForFile(File file, boolean makeFileIfFalse) { //call this function for
 
         boolean exists = file.exists();
-        if (exists) {
-            System.out.println(file + " exists? = " + exists);
-        }
         if (!exists) {
-            System.err.println(file + " exists = " + exists);
             if (makeFileIfFalse) {
-                this.makeFile(file);
+                makeFile(file);
             }
         }
 
@@ -28,7 +24,7 @@ public class CSFileHandler {
     }
 
 
-    public void makeFile(File file) {
+    public static void makeFile(File file) {
 
         String filePath = file.getPath();
         String fileName = file.getName();
@@ -47,7 +43,8 @@ public class CSFileHandler {
         writer.close();
 
     }
-    public String fileToString(String filePath) {
+
+    public static String fileToString(String filePath) {
         StringBuilder contentBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
             stream.forEach(s -> contentBuilder.append(s).append("\n"));
@@ -57,7 +54,8 @@ public class CSFileHandler {
 
         return contentBuilder.toString();
     }
-    public void writeToFile(File file, String content) {
+
+    public static void writeToFile(File file, String content) {
         try {
             FileWriter fw = new FileWriter(file);
                     fw.write(content);
@@ -67,7 +65,9 @@ public class CSFileHandler {
         }
 
     }
-    public String fileToString(File file) {
+
+    @Broken
+    public static String fileToString(File file) {
         String filePath = file.getPath();
         StringBuilder contentBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
@@ -78,6 +78,7 @@ public class CSFileHandler {
 
         return contentBuilder.toString();
     }
+
     public void scanDirectory(String directory) {
 
         File folder = new File(directory);
@@ -98,8 +99,6 @@ public class CSFileHandler {
         return path;
     }
 
-
-
     private String findDifferenceBetweenArrays(String[] largeArray, String[] smallArray) {
         int indexOfLargeArray = 0;
         while(indexOfLargeArray < largeArray.length) {
@@ -113,6 +112,7 @@ public class CSFileHandler {
         }
         return null;
     }
+
     private boolean smallArrayContains(String whatToCheckFor, String[] smallArray) {
         int indexOfSmallArray = 0;
         while (indexOfSmallArray < smallArray.length) {
@@ -129,13 +129,18 @@ public class CSFileHandler {
         return false;
     }
 
-    public void restoreDefault() {
+    /**
+     * Only ever call this method if you want to clear all preferences, logs, and history.
+     */
+    public static void restoreDefault() {
         try {
             File file1 = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\StreamPrivacy.csdat");
             File file2 = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\UIPreferences.csdat");
             File file3 = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\logs.log");
+            File file4 = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\MayStream.csdat");
             File subdirectory = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences");
             File directory = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer");
+
             file1.delete();
             file2.delete();
             file3.delete();

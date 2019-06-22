@@ -38,8 +38,8 @@ public class StreamManager {
     }
     public void StopRecording()
     {
-        // This stuff happens when you click "StopRecording"
-        handler.StopRecording();
+        // This stuff happens when you click "stopRecording"
+        handler.stopRecording();
 
     }
 
