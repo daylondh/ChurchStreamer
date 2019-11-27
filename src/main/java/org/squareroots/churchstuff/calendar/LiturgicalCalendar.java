@@ -13,6 +13,7 @@ public class LiturgicalCalendar {
     private int _christmas = 358;
     private int _newYearDayOfWeek;
     private int year;
+    private int _thanksgiving;
 
     public LiturgicalCalendar(int year)
     {
@@ -45,6 +46,7 @@ public class LiturgicalCalendar {
         BuildToPentecost(); // week and season...
         BuildAdvent();
         BuildPentecost();
+        BuildThanksgiving();
     }
 
     private void BuildAdvent() {
@@ -65,7 +67,7 @@ public class LiturgicalCalendar {
         _entries[advent1 - 4] = "Last Wednesday Of The Church Year";
         _entries[advent1 - 3] = "Last Thursday Of The Church Year";
         _entries[advent1 - 2] = "Last Friday Of The Church Year";
-        _entries[advent1 - 1] = "Last Saturday in Pentecost";
+        _entries[advent1 - 1] = "Last Saturday Of The Church Year";
         _entries[advent1] = "First Sunday in Advent";
         _firstAdvent = advent1;
         for(int i = _firstAdvent; i < _christmas; i++)
@@ -168,6 +170,22 @@ public class LiturgicalCalendar {
         _entries[_pentecost] = "Pentecost";
     }
 
+    private void BuildThanksgiving() {
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.set(year, 11, 1);
+        int firstDayOfNov = gc.get(GregorianCalendar.DAY_OF_YEAR)-1;
+        int weekDayForFirstDay = firstDayOfNov % 7;
+        int daysToFirstThursday = 4-weekDayForFirstDay;
+        if(daysToFirstThursday < 0)
+            daysToFirstThursday +=7;
+        int daysToThanksgiving = 3*7+daysToFirstThursday;
+        gc.set(year, 10, daysToThanksgiving+1);
+        int thanksgivingInYear = gc.get(GregorianCalendar.DAY_OF_YEAR)-1;
+        _entries[thanksgivingInYear-1] = "Thanksgiving Eve";
+        _entries[thanksgivingInYear] = "Thanksgiving Day";
+        _thanksgiving = thanksgivingInYear;
+    }
+
     private String Nth(int sinceStart) {
         if(sinceStart == 0)
             return "";
@@ -251,7 +269,7 @@ public class LiturgicalCalendar {
                 return "Saturday";
             default:
                 return "DUNNO";
-        }
+    }
     }
 
     public int GetAshWednesday()
@@ -261,5 +279,9 @@ public class LiturgicalCalendar {
 
     public String LookupByDayInYear(int dayofyear) {
         return _entries[dayofyear-1];
+    }
+
+    public int GetThanksgiving() {
+        return _thanksgiving;
     }
 }

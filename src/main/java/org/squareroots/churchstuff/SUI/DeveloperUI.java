@@ -32,7 +32,7 @@ import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
  */
 public class DeveloperUI {
     final String OAuthDirectory = System.getProperty("user.home") + "/" + ".oauth-credentials";
-    // Classes
+
     private CSFileHandler csfh = new CSFileHandler();
     private StreamManager stream = new StreamManager();
     private LiturgicalCalendar _liturgicalCalendar;
@@ -519,11 +519,11 @@ public class DeveloperUI {
         label1.setVerticalTextPosition(3);
         panel1.add(label1, new GridConstraints(0, 1, 1, 6, GridConstraints.ANCHOR_SOUTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         label2 = new JLabel();
-        label2.setText("If you have any problems with this software, please contact:");
+        label2.setText("If you have any problems, please contact:");
         panel1.add(label2, new GridConstraints(2, 1, 1, 6, GridConstraints.ANCHOR_SOUTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         label3 = new JLabel();
         label3.setHorizontalTextPosition(0);
-        label3.setText("Alex Hooper, (937) 929-0939 or Daylond Hooper, (937) 270-9432");
+        label3.setText("Alex or Daylond Hooper, (937) 929-0939 or (937) 270-9432");
         panel1.add(label3, new GridConstraints(3, 1, 1, 6, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
         panel1.add(spacer2, new GridConstraints(3, 0, 8, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));

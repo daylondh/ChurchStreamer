@@ -26,4 +26,17 @@ public class CalendarTests {
         gc.add(GregorianCalendar.DAY_OF_YEAR, aw);
         System.out.println("Ash wednesday is " + gc.get(GregorianCalendar.MONTH) +  " " + gc.get(GregorianCalendar.DAY_OF_MONTH) + ", on day " + aw + " of the year." );
     }
+
+    @Test
+    public void TestThanksgiving()
+    {
+        int year = 2019;
+        LiturgicalCalendar lc = new LiturgicalCalendar(year);
+        int thanksgiving = lc.GetThanksgiving();
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.set(year, 0, 0);
+        gc.add(GregorianCalendar.DAY_OF_YEAR, thanksgiving);
+        System.out.println("Thanksgiving is " + gc.get(GregorianCalendar.MONTH) +  " " + gc.get(GregorianCalendar.DAY_OF_MONTH) + ", on day " + thanksgiving + " of the year." );
+
+    }
 }
