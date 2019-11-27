@@ -59,12 +59,12 @@ public class LiturgicalCalendar {
             advent1 = stAndrew - modulo;
         else
             advent1 = stAndrew + 7 - modulo;
-        _entries[advent1 - 7] = "Last Sunday in Pentecost";
-        _entries[advent1 - 6] = "Last Monday in Pentecost";
-        _entries[advent1 - 5] = "Last Tuesday in Pentecost";
-        _entries[advent1 - 4] = "Last Wednesday in Pentecost";
-        _entries[advent1 - 3] = "Last Thursday in Pentecost";
-        _entries[advent1 - 2] = "Last Friday in Pentecost";
+        _entries[advent1 - 7] = "Last Sunday Of The Church Year";
+        _entries[advent1 - 6] = "Last Monday Of The Church Year";
+        _entries[advent1 - 5] = "Last Tuesday Of The Church Year";
+        _entries[advent1 - 4] = "Last Wednesday Of The Church Year";
+        _entries[advent1 - 3] = "Last Thursday Of The Church Year";
+        _entries[advent1 - 2] = "Last Friday Of The Church Year";
         _entries[advent1 - 1] = "Last Saturday in Pentecost";
         _entries[advent1] = "First Sunday in Advent";
         _firstAdvent = advent1;
@@ -119,7 +119,7 @@ public class LiturgicalCalendar {
         for(int i = 0; i < _ashWednesday - 3; i++)
         {
             int weekInYear = i/7;
-            if(_entries[i] ==  null || _entries[i] == "")
+            if(_entries[i] ==  null || _entries[i].isEmpty())
             {
                 if(weekInYear == 0 && i < 6)
                     _entries[i] = "Second " + WeekDay(i) + " after Christmas";

@@ -17,6 +17,8 @@ package org.squareroots.churchstuff.youtube.live;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.util.DateTime;
+import org.squareroots.churchstuff.Bulletins.CommandLineHandler;
+import org.squareroots.churchstuff.Bulletins.OnBulletinRecieved;
 import org.squareroots.churchstuff.youtube.Auth;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.*;
@@ -71,6 +73,28 @@ public class CreateBroadcast {
             Date startTime = Date.from(plusSeconds.atZone(ZoneId.systemDefault()).toInstant());
             Date endTime= Date.from(plusMinutes.atZone(ZoneId.systemDefault()).toInstant());
             broadcastSnippet.setScheduledStartTime(new DateTime(startTime));
+            CommandLineHandler.getURL(new OnBulletinRecieved() {
+                @Override
+                public void doOnSuccess(String url) {
+                    broadcastSnippet.setDescription("We are Bethlehem Lutheran Church, in Fairborn, OH. " +
+                            "Website: https://bethlehem7.org . " +
+                            "This service's bulletin: " + url +
+                            "Thank you for watching our services." +
+                            "Matthew 28:19 :  Therefore go and make" +
+                            " disciples of all nations, baptizing them " +
+                            "in the name of the Father and of the Son and of the Holy Spirit");
+                }
+
+                @Override
+                public void doOnFailure() {
+                    broadcastSnippet.setDescription("We are Bethlehem Lutheran Church, in Fairborn, OH. " +
+                            "Website: https://bethlehem7.org . " +
+                            "Thank you for watching our services." +
+                            "Matthew 28:19 :  Therefore go and make" +
+                            " disciples of all nations, baptizing them " +
+                            "in the name of the Father and of the Son and of the Holy Spirit");
+                }
+            });
 
             // Set the broadcast's privacy status to "private". See:
             // https://developers.google.com/youtube/v3/live/docs/liveBroadcasts#status.privacyStatus

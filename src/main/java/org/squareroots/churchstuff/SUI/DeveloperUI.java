@@ -155,6 +155,7 @@ public class DeveloperUI {
                 csfh.writeToFile(uiPrefFile, darktheme);
             }
         });
+
         privacyComboBox.addActionListener(e -> {
 
             if (privacyComboBox.getSelectedItem().equals(privateStream)) {
@@ -164,6 +165,7 @@ public class DeveloperUI {
                 csfh.writeToFile(streamPrivFile, "public");
             }
         });
+
         StartRecordingButton.addActionListener(e -> {
 
             if (_isRecording) {
@@ -198,6 +200,7 @@ public class DeveloperUI {
             }
             _isRecording = !_isRecording;
         });
+
         openLogsButton.addActionListener(e -> {
             try {
                 Desktop.getDesktop().open(logFile);
@@ -205,7 +208,9 @@ public class DeveloperUI {
                 e1.printStackTrace();
             }
         });
+
         UploadToYTCheckBox.addActionListener(e -> uploadWhenComplete = UploadToYTCheckBox.isSelected());
+
         StreamingEnabled.addActionListener(e -> {
             if (StreamingEnabled.isSelected()) {
                 CSFileHandler.writeToFile(mayStreamFile, "true");
@@ -258,7 +263,6 @@ public class DeveloperUI {
 
         return true;
     }
-
 
     public void showDeveloper() {   //Makes all components show, and runs init method.
 
