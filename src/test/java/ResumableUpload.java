@@ -27,11 +27,8 @@ import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatus;
 import com.google.common.collect.Lists;
 import org.junit.Test;
-import org.squareroots.churchstuff.Misc.CSLogger;
 import org.squareroots.churchstuff.youtube.Auth;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -160,11 +157,10 @@ public class ResumableUpload {
                             System.out.println("Bytes Uploaded: " + uploader.getNumBytesUploaded()); // TODO: 10/21/2018 Divide file.length() by this number for percentage.
                             break;
                         case MEDIA_COMPLETE:
-                            CSLogger.logData("Upload Completed!");
                             System.out.println("Upload Completed!");
                             break;
                         case NOT_STARTED:
-                            CSLogger.logData("Upload Not Started.");
+
                             System.out.println("Upload Not Started!");
                             break;
                     }
@@ -173,14 +169,6 @@ public class ResumableUpload {
             uploader.setProgressListener(progressListener);
             // Call the API and upload the video.
             Video returnedVideo = videoInsert.execute();
-
-            // Print data about the newly inserted video from the API response.
-            CSLogger.logData("\n================== Returned Video ==================\n");
-            CSLogger.logData("  - Id: "  + returnedVideo.getId());
-            CSLogger.logData("  - Title: " + returnedVideo.getSnippet().getTitle());
-            CSLogger.logData("  - Tags: " + returnedVideo.getSnippet().getTags());
-            CSLogger.logData("  - Privacy Status: " + returnedVideo.getStatus().getPrivacyStatus());
-            CSLogger.logData("  - Video Count: " + returnedVideo.getStatistics().getViewCount());
 
             System.out.println("\n================== Returned Video ==================\n");
             System.out.println("  - Id: " + returnedVideo.getId());

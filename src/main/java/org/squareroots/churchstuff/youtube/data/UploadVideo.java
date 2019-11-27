@@ -30,7 +30,6 @@ import com.google.api.services.youtube.model.VideoStatus;
 import com.google.common.collect.Lists;
 import org.squareroots.churchstuff.Bulletins.CommandLineHandler;
 import org.squareroots.churchstuff.Bulletins.OnBulletinRecieved;
-import org.squareroots.churchstuff.Misc.CSLogger;
 import org.squareroots.churchstuff.youtube.Auth;
 
 import java.io.File;
@@ -182,11 +181,9 @@ public class UploadVideo {
                             System.out.println("Percentage: "+ fileLength / uploader.getNumBytesUploaded() + "%");
                             break;
                         case MEDIA_COMPLETE:
-                            CSLogger.logData("Upload Completed!");
                             System.out.println("Upload Completed!");
                             break;
                         case NOT_STARTED:
-                            CSLogger.logData("Upload Not Started.");
                             System.out.println("Upload Not Started!");
                             break;
                     }
@@ -195,15 +192,6 @@ public class UploadVideo {
             uploader.setProgressListener(progressListener);
             // Call the API and upload the video.
             Video returnedVideo = videoInsert.execute();
-
-            // Print data about the newly inserted video from the API response.
-            CSLogger.logData("\n================== Returned Video ==================\n");
-            CSLogger.logData("  - Id: "  + returnedVideo.getId());
-            CSLogger.logData("  - Title: " + returnedVideo.getSnippet().getTitle());
-            CSLogger.logData("  - Tags: " + returnedVideo.getSnippet().getTags());
-            CSLogger.logData("  - Privacy Status: " + returnedVideo.getStatus().getPrivacyStatus());
-            CSLogger.logData("  - Video Count: " + returnedVideo.getStatistics().getViewCount());
-
             System.out.println("\n================== Returned Video ==================\n");
             System.out.println("  - Id: " + returnedVideo.getId());
             System.out.println("  - Title: " + returnedVideo.getSnippet().getTitle());

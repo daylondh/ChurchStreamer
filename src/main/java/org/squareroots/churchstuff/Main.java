@@ -1,6 +1,6 @@
 package org.squareroots.churchstuff;
 
-import org.squareroots.churchstuff.Misc.CSFileHandler;
+import org.squareroots.churchstuff.Misc.FileHandler;
 import org.squareroots.churchstuff.SUI.DeveloperUI;
 import org.squareroots.churchstuff.calendar.LiturgicalCalendar;
 import org.squareroots.churchstuff.youtube.live.CreateBroadcast;
@@ -18,7 +18,7 @@ public class Main {
                 String answer = sc.nextLine();
 
                 if (answer.toLowerCase().equals("y")) {
-                    CSFileHandler csfh = new CSFileHandler();
+                    FileHandler csfh = new FileHandler();
                     csfh.restoreDefault();
                 } else if (answer.toLowerCase().equals("n")) {
                     System.out.println("Okay, exiting...");

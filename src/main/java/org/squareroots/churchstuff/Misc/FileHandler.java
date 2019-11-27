@@ -6,78 +6,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-public class CSFileHandler {
+public class FileHandler {
 
     private static PrintWriter writer = null;
     private static String[] listOfFiles;
 
-    public static boolean checkForFile(File file, boolean makeFileIfFalse) { //call this function for
-
-        boolean exists = file.exists();
-        if (!exists) {
-            if (makeFileIfFalse) {
-                makeFile(file);
-            }
-        }
-
-        return exists;
-    }
-
-
-    public static void makeFile(File file) {
-
-        String filePath = file.getPath();
-        String fileName = file.getName();
-        String fileDirectory = filePath.replace("\\" + fileName, "");
-
-        try {
-            boolean success = new File(fileDirectory).mkdirs();
-            System.out.println(file +" built.");
-            System.out.println("Finalizing encoding for " + file+ "...");
-            writer = new PrintWriter(file, "UTF-8");
-            System.out.println("Successfully created file.");
-        }
-
-        catch (FileNotFoundException e) {e.printStackTrace();}
-        catch (UnsupportedEncodingException e) {e.printStackTrace();}
-        writer.close();
-
-    }
-
-    public static String fileToString(String filePath) {
-        StringBuilder contentBuilder = new StringBuilder();
-        try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> contentBuilder.append(s).append("\n"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return contentBuilder.toString();
-    }
-
-    public static void writeToFile(File file, String content) {
-        try {
-            FileWriter fw = new FileWriter(file);
-                    fw.write(content);
-                    fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Broken
-    public static String fileToString(File file) {
-        String filePath = file.getPath();
-        StringBuilder contentBuilder = new StringBuilder();
-        try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> contentBuilder.append(s).append("\n"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return contentBuilder.toString();
-    }
 
     public void scanDirectory(String directory) {
 
@@ -94,7 +27,6 @@ public class CSFileHandler {
 
         String path = directory + "\\" +findDifferenceBetweenArrays(listOfFiles, this.listOfFiles );
         System.out.println("Recorded file found at:" + path);
-        CSLogger.logData("Recorded file found at:" + path);
 
         return path;
     }

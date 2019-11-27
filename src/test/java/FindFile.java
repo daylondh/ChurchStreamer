@@ -1,4 +1,4 @@
-import org.squareroots.churchstuff.Misc.CSFileHandler;
+import org.squareroots.churchstuff.Misc.FileHandler;
 
 import javax.swing.*;
 
@@ -9,7 +9,7 @@ public class FindFile {
    static JPanel panel = new JPanel();
    static JButton scanBUtton = new JButton("Scan");
    static JButton findNewBUtton = new JButton("Find new");
-    static CSFileHandler csfh = new CSFileHandler();
+    static FileHandler csfh = new FileHandler();
 
 
     public static void main(String[] args) { // TODO: 10/25/2018 USE USER INPUT TO SCAN THEN COMPARE.

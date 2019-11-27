@@ -2,15 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="29ff57b2-6c54-42da-9d11-9e756140eea6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/Preferences.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/preferences.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Streamer_main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Streamer_test.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/org/squareroots/churchstuff/calendar/EasterCalculator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Archive/OutdatedUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/CSFileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/FileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Misc/CSLogger.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/SUI/DeveloperUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/calendar/LiturgicalCalendar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/calendar/LiturgicalCalendar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/CalendarTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CalendarTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/data/UploadVideo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/data/UploadVideo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/FindFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FindFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/LogData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/LogData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ResumableUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ResumableUpload.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -72,14 +80,14 @@
     <property name="settings.editor.selected.configurable" value="project.propGUI" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="org.squareroots.churchstuff.Misc" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Alex Hooper\Code\ChurchStreamer\src\main\java\org\squareroots\churchstuff\SUI" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.squareroots.churchstuff.SUI.SmallUI" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Alex Hooper\Code\ChurchStreamer\src\main\java\org\squareroots\churchstuff\SUI" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.squareroots.churchstuff.Misc" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -166,10 +174,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.ChurchStreamer [fatJar]" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.CalendarTests.TestThanksgiving" />
         <item itemvalue="JUnit.CommandLineTests.getURL" />
         <item itemvalue="JUnit.CommandLineTests" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -196,6 +204,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/Main.java</url>
+          <line>10</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="masterDetails">
     <states>

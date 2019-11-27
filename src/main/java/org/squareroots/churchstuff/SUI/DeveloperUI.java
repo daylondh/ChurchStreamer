@@ -3,8 +3,8 @@ package org.squareroots.churchstuff.SUI;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import org.squareroots.churchstuff.Misc.CSFileHandler;
-import org.squareroots.churchstuff.Misc.CSLogger;
+import org.squareroots.churchstuff.Misc.FileHandler;
+import org.squareroots.churchstuff.Misc.Preferences;
 import org.squareroots.churchstuff.calendar.LiturgicalCalendar;
 import org.squareroots.churchstuff.calendar.ServiceCalculator;
 import org.squareroots.churchstuff.streamer.ObsHandler;
@@ -33,24 +33,12 @@ import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 public class DeveloperUI {
     final String OAuthDirectory = System.getProperty("user.home") + "/" + ".oauth-credentials";
 
-    private CSFileHandler csfh = new CSFileHandler();
+    private FileHandler csfh = new FileHandler();
     private StreamManager stream = new StreamManager();
     private LiturgicalCalendar _liturgicalCalendar;
     private ServiceCalculator _serviceCalculator = new ServiceCalculator();
     private UploadVideo uploadVideo = new UploadVideo();
     ObsHandler obshandler = new ObsHandler();
-
-    // Files
-    String basepath = System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences";
-    String logPath = System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\logs.log";
-    File logFile = new File(logPath);
-    private File uiPrefFile = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\UIPreferences.csdat");
-    private File streamPrivFile = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\StreamPrivacy.csdat");
-    private File mayStreamFile = new File(System.getProperty("user.home") + "\\AppData\\Local\\ChurchStreamer\\preferences\\MayStream.csdat");
-    // Objects
-    private Object publicStream = "Public";
-    private Object privateStream = "Private";
-
 
     // Colors
     private Color _defaultButtonColor;
@@ -58,7 +46,6 @@ public class DeveloperUI {
     // Strings
     private String privacy = "Public";
     private String title;
-    public String content = csfh.fileToString(uiPrefFile.getPath());
 
     // Booleans
     private boolean mayStream;
@@ -82,6 +69,9 @@ public class DeveloperUI {
     private JLabel noticeLabel;
     private JCheckBox StreamingEnabled;
     JFrame frame = new JFrame();
+
+    private Object publicStream = "Public";
+    private Object privateStream = "Private";
 
 
     public DeveloperUI(LiturgicalCalendar lc) {
@@ -111,14 +101,12 @@ public class DeveloperUI {
             public void actionPerformed(ActionEvent e) {
 
                 if (_isStreaming) {
-                    CSLogger.logData("Stopping Stream...");
                     System.out.println("Stopping Stream...");
                     startStreamingButton.setText("Click Here To Start Streaming");
                     startStreamingButton.setBackground(_defaultButtonColor);
                     stream.StopStreaming();
                     System.exit(0);
                 } else {
-                    CSLogger.logData("Starting stream...");
                     System.out.println("Starting stream...");
                     startStreamingButton.setText("Click Here To Stop Streaming");
                     startStreamingButton.setBackground(Color.red);
@@ -144,7 +132,7 @@ public class DeveloperUI {
                 applyThemes();
                 darkThemeCheckBox.setSelected(true);
                 String darktheme = "true";
-                csfh.writeToFile(uiPrefFile, darktheme);
+
 
             }
 
@@ -152,30 +140,28 @@ public class DeveloperUI {
                 applyThemes();
                 darkThemeCheckBox.setSelected(false);
                 String darktheme = "false";
-                csfh.writeToFile(uiPrefFile, darktheme);
+                Preferences.setDarkTheme(false);
             }
         });
 
         privacyComboBox.addActionListener(e -> {
 
             if (privacyComboBox.getSelectedItem().equals(privateStream)) {
-                csfh.writeToFile(streamPrivFile, "private");
+                Preferences.setPrivacy("Private");
             }
             if (privacyComboBox.getSelectedItem().equals(publicStream)) {
-                csfh.writeToFile(streamPrivFile, "public");
+                Preferences.setPrivacy("Public");
             }
         });
 
         StartRecordingButton.addActionListener(e -> {
 
             if (_isRecording) {
-                CSLogger.logData("Stopping recording....");
                 System.out.println("Stopping Recording...");
                 StartRecordingButton.setText("Recording Complete. This Button Will Be Re-Enabled Once The Service Is Uploaded");
                 StartRecordingButton.setBackground(_defaultButtonColor);
                 StartRecordingButton.setEnabled(false);
                 stream.StopRecording();
-                CSLogger.logData("Recording stopped.");
                 System.out.println("Recording stopped");
                 if (uploadWhenComplete) {
                     try {
@@ -202,20 +188,16 @@ public class DeveloperUI {
         });
 
         openLogsButton.addActionListener(e -> {
-            try {
-                Desktop.getDesktop().open(logFile);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+
         });
 
         UploadToYTCheckBox.addActionListener(e -> uploadWhenComplete = UploadToYTCheckBox.isSelected());
 
         StreamingEnabled.addActionListener(e -> {
             if (StreamingEnabled.isSelected()) {
-                CSFileHandler.writeToFile(mayStreamFile, "true");
+                Preferences.setStreamEnabled(true);
             } else {
-                CSFileHandler.writeToFile(mayStreamFile, "false");
+                Preferences.setStreamEnabled(false);
             }
         });
 
@@ -339,9 +321,6 @@ public class DeveloperUI {
 
     private void init() {
         boolean isfirsttime = isFirstTime(false);
-        csfh.checkForFile(streamPrivFile, true);
-        csfh.checkForFile(mayStreamFile, true);
-        csfh.checkForFile(uiPrefFile, true);
         getMayStream();
 
 
@@ -438,23 +417,20 @@ public class DeveloperUI {
 
     private void stringToBool() { //Take the String from uiPrefFile and turn it into a boolean.
 
-        if (content.contains("true")) {
+        if (Preferences.getIsDarkTheme()) {
             isDark = true;
 
         }
-        if (content.contains("false")) {
+        if (!Preferences.getIsDarkTheme()) {
             isDark = false;
 
         }
     }
 
     private void getMayStream() {
-        if (mayStreamFile.length() == 0) {
+        if (Preferences.streamEnabled()) {
             mayStream = true;
         } else {
-            String mayStreamS = csfh.fileToString(basepath + "\\MayStream.csdat");
-
-            this.mayStream = mayStreamS.toLowerCase().contains("true");
             StreamingEnabled.setSelected(this.mayStream);
         }
     }
@@ -467,11 +443,11 @@ public class DeveloperUI {
     }
 
     private void recallComboboxPrefrences() {
-        if (csfh.fileToString(streamPrivFile).contains("Private")) {
+        if (Preferences.getPrivacy().equals("Private")) {
             privacyComboBox.getModel().setSelectedItem(privateStream);
 
         }
-        if (csfh.fileToString(streamPrivFile).contains("Public")) {
+        if (Preferences.getPrivacy().equals("Private")) {
             privacyComboBox.getModel().setSelectedItem(publicStream);
 
         }
