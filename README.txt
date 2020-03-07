@@ -1,1 +1,0 @@
-In case anything goes wrong with the importing, open gradle config. Navigate to "compile forms_rt-0-0.0" replace the version number with something else. Import the changes then FatJar. Errors will occur, if prompted to do something about these errors, DON'T. GO back to the "compile forms_rt" line, and re=-import the newest version of it. Import changes then FatJar. 
