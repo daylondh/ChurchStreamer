@@ -1,0 +1,11 @@
+{
+    "name": "ChurchStreamer Bridger",
+    "version": "1.0",
+    "description": "Does stuffs",
+    "background" : {
+        "scripts" : ["background.js"]
+    },
+    "permissions" : ["nativeMessaging", "activeTab"],
+    "manifest_version": 2
+
+}
