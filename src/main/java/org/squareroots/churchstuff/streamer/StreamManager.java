@@ -1,13 +1,14 @@
 package org.squareroots.churchstuff.streamer;
 
+import com.google.api.services.youtube.model.*;
 import org.squareroots.churchstuff.youtube.live.CreateBroadcast;
 
 import java.io.IOException;
 
 public class StreamManager {
 
-    CreateBroadcast cb = new CreateBroadcast();
-    ObsHandler handler = new ObsHandler();
+    private CreateBroadcast cb = new CreateBroadcast();
+    private ObsHandler handler = new ObsHandler();
 
     String title;
     boolean isPublic = false;
@@ -20,16 +21,9 @@ public class StreamManager {
 
     public void StartStreaming()
     {
-        cb.Go(title, isPublic);
+        cb.updateYT(new LiveBroadcast().setSnippet(new LiveBroadcastSnippet().setTitle(title)));
         handler.startStreaming();
-        try {
-            cb.WaitForActive();
-            cb.TransitionToLive();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+      //  cb.activate();
     }
     public void StartRecording()
     {
@@ -47,11 +41,6 @@ public class StreamManager {
     {
         // This stuff happens when you click "StopStreaming"
         handler.StopStreaming();
-        try {
-            cb.TransitionToDone();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
 
