@@ -2,6 +2,7 @@ package org.squareroots.churchstuff;
 
 import org.squareroots.churchstuff.Misc.FileHandler;
 import org.squareroots.churchstuff.SUI.DeveloperUI;
+import org.squareroots.churchstuff.SUI.UI;
 import org.squareroots.churchstuff.calendar.LiturgicalCalendar;
 import org.squareroots.churchstuff.youtube.live.CreateBroadcast;
 
@@ -41,8 +42,9 @@ public class Main {
             int year = c.get(Calendar.YEAR);
             LiturgicalCalendar lc = new LiturgicalCalendar(year);
             CreateBroadcast createBroadcast = new CreateBroadcast();
-            DeveloperUI form = new DeveloperUI(lc);
-            form.showSimple();
+       //     DeveloperUI form = new DeveloperUI(lc);
+         //   form.showSimple();
+            UI ui = new UI();
         }
     }
 }
