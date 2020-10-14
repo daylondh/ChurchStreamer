@@ -27,6 +27,7 @@ import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -80,29 +81,21 @@ public class CreateBroadcast {
 
 
     private void populateBulletin(LiveBroadcastSnippet broadcastSnippet) {
-        CommandLineHandler.getURL(new OnBulletinRecieved() {
-            @Override
-            public void doOnSuccess(String url) {
-                broadcastSnippet.setDescription("We are Bethlehem Lutheran Church, in Fairborn, OH. \n" +
-                        "Website: https://bethlehem7.org . \n" +
-                        "This service's bulletin: " + url +
-                        "\n Thank you for watching our services." +
-                        "Matthew 28:19 :  Therefore go and make" +
-                        " disciples of all nations, baptizing them " +
-                        "in the name of the Father and of the Son and of the Holy Spirit");
-            }
+        broadcastSnippet.setDescription("We are Bethlehem Lutheran Church, in Fairborn, OH. \n" +
+                "Website: https://bethlehem7.org . \n" +
+                "This service's bulletin: " + createURL() +
+                "\n Thank you for watching our services." +
+                "Matthew 28:19 :  Therefore go and make" +
+                " disciples of all nations, baptizing them " +
+                "in the name of the Father and of the Son and of the Holy Spirit");
 
-            @Override
-            public void doOnFailure() {
-                broadcastSnippet.setDescription("We are Bethlehem Lutheran Church, in Fairborn, OH. \n" +
-                        "Website: https://bethlehem7.org . \n" +
-                        "Thank you for watching our services. \n" +
-                        "Matthew 28:19 :  Therefore go and make " +
-                        "disciples of all nations, baptizing them " +
-                        "in the name of the Father and of the Son and of the Holy Spirit");
-            }
-        });
-
+    }
+    private static String createURL() {
+        //Year, month, day
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String date = dtf.format(now);
+        return "https://bulletin.churchstreamer.org/bulletin.html?date=" + date;
     }
 
 }

@@ -35,6 +35,8 @@ import org.squareroots.churchstuff.youtube.Auth;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,28 +109,13 @@ public class UploadVideo {
             // Most of the video's metadata is set on the VideoSnippet object.
             VideoSnippet snippet = new VideoSnippet();
             snippet.setTitle(title);
-            CommandLineHandler.getURL(new OnBulletinRecieved() {
-                @Override
-                public void doOnSuccess(String url) {
-                    snippet.setDescription("We are Bethlehem Lutheran Church, in Fairborn, OH. " +
-                            "Website: https://bethlehem7.org . " +
-                            "This service's bulletin: " + url +
-                            "Thank you for watching our services." +
-                            "Matthew 28:19 :  Therefore go and make" +
-                            " disciples of all nations, baptizing them " +
-                            "in the name of the Father and of the Son and of the Holy Spirit");
-                }
-
-                @Override
-                public void doOnFailure() {
-                    snippet.setDescription("We are Bethlehem Lutheran Church, in Fairborn, OH. " +
-                            "Website: https://bethlehem7.org . " +
-                            "Thank you for watching our services." +
-                            "Matthew 28:19 :  Therefore go and make" +
-                            " disciples of all nations, baptizing them " +
-                            "in the name of the Father and of the Son and of the Holy Spirit");
-                }
-            });
+            snippet.setDescription("We are Bethlehem Lutheran Church, in Fairborn, OH. " +
+                    "Website: https://bethlehem7.org . " +
+                    "This service's bulletin: " + createURL() +
+                    "Thank you for watching our services." +
+                    "Matthew 28:19 :  Therefore go and make" +
+                    " disciples of all nations, baptizing them " +
+                    "in the name of the Father and of the Son and of the Holy Spirit");
 
             // Set the keyword tags that you want to associate with the video.
             List<String> tags = new ArrayList<String>();
@@ -211,5 +198,13 @@ public class UploadVideo {
             System.err.println("Throwable: " + t.getMessage());
             t.printStackTrace();
         }
+    }
+
+    private static String createURL() {
+        //Year, month, day
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String date = dtf.format(now);
+        return "https://bulletin.churchstreamer.org/bulletin.html?date=" + date;
     }
 }
