@@ -57,7 +57,7 @@ public class CreateBroadcast {
             LiveStream ls = cls.Create(youtube);
             LiveBroadcastSnippet snippet = new LiveBroadcastSnippet();
             populateBulletin(snippet);
-            snippet.setScheduledEndTime(new DateTime(System.currentTimeMillis() + 3600000));
+            //snippet.setScheduledEndTime(null));
             snippet.setScheduledStartTime(new DateTime(System.currentTimeMillis() + 1000));
             snippet.setTitle(title);
             broadcast.setSnippet(snippet);
@@ -89,10 +89,10 @@ public class CreateBroadcast {
     }
     private static String createURL() {
         //Year, month, day
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yy");
         LocalDateTime now = LocalDateTime.now();
         String date = dtf.format(now);
-        return "https://bulletin.churchstreamer.org/bulletin.html?date=" + date;
+        return "https://bulletins.churchstreamer.org?t=" String.valueOf(System.currentTimeMillis() * .001) + "&d=" + date;
     }
 
     public YouTube getYoutube(){ return youtube;}
