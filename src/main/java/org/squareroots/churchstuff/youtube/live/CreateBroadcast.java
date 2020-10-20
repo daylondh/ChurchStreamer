@@ -34,8 +34,9 @@ import java.util.List;
 public class CreateBroadcast {
 
     private static YouTube youtube;
+    private CreateLiveStream cls = new CreateLiveStream();
 
-    public void updateYT(LiveBroadcast broadcast) {
+    public LiveBroadcast updateYT(LiveBroadcast broadcast, String title) {
         try {
             // Authorize the request.
             Credential credential = Auth.authorize(Lists.newArrayList("https://www.googleapis.com/auth/youtube"), "createbroadcast");
@@ -44,41 +45,37 @@ public class CreateBroadcast {
             youtube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential)
                     .setApplicationName("Church Streamer").build();
 
-            populateBulletin(broadcast.getSnippet());
+            LiveBroadcastContentDetails details = new LiveBroadcastContentDetails();
+            details.setEnableClosedCaptions(true);
+            details.setEnableContentEncryption(true);
+            details.setEnableDvr(true);
+            details.setEnableEmbed(true);
+            details.setRecordFromStart(true);
+            details.setEnableAutoStart(true);
+            broadcast.setContentDetails(details);
+            CreateLiveStream cls = new CreateLiveStream();
+            LiveStream ls = cls.Create(youtube);
+            LiveBroadcastSnippet snippet = new LiveBroadcastSnippet();
+            populateBulletin(snippet);
+            snippet.setScheduledEndTime(new DateTime(System.currentTimeMillis() + 3600000));
+            snippet.setScheduledStartTime(new DateTime(System.currentTimeMillis() + 1000));
+            snippet.setTitle(title);
+            broadcast.setSnippet(snippet);
+            // Add the status object property to the LiveBroadcast object.
+            LiveBroadcastStatus status = new LiveBroadcastStatus();
+            status.setPrivacyStatus("public");
+            broadcast.setStatus(status);
 
-            YouTube.LiveBroadcasts.List liveStreamRequest = youtube.liveBroadcasts().list("id,status,snippet").setMine(true).setBroadcastType("persistent");
-            LiveBroadcastListResponse returnedList = liveStreamRequest.execute();
-            //Just a conversion
-            List<LiveBroadcast> liveBroadcasts = returnedList.getItems();
+            YouTube.LiveBroadcasts.Insert liveStreamRequest = youtube.liveBroadcasts().insert("snippet,contentDetails,status", broadcast);
+            broadcast= liveStreamRequest.execute();
 
-            if (liveBroadcasts != null && liveBroadcasts.size() > 0) {
-                LiveBroadcast liveBroadcast = liveBroadcasts.get(0);
-                if (liveBroadcast != null) {
-                    setIt(broadcast.setId(liveBroadcast.getId()));
-                }
-            }
-
-
+            YouTube.LiveBroadcasts.Bind request = youtube.liveBroadcasts().bind(broadcast.getId(), "snippet");
+            broadcast = request.setStreamId(ls.getId()).execute();
+            return broadcast;
         }
         catch (Exception e) {e.printStackTrace();}
+        return null;
     }
-
-    private void setIt(LiveBroadcast broadcast) {
-
-        try {
-
-            YouTube.LiveBroadcasts.Update request;
-            request = youtube.liveBroadcasts()
-                    .update("snippet", broadcast);
-            LiveBroadcast response = request.execute();
-            System.out.println("=========================RESPONSE===============================");
-            System.out.println(response);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 
     private void populateBulletin(LiveBroadcastSnippet broadcastSnippet) {
         broadcastSnippet.setDescription("We are Bethlehem Lutheran Church, in Fairborn, OH. \n" +
@@ -97,5 +94,7 @@ public class CreateBroadcast {
         String date = dtf.format(now);
         return "https://bulletin.churchstreamer.org/bulletin.html?date=" + date;
     }
+
+    public YouTube getYoutube(){ return youtube;}
 
 }

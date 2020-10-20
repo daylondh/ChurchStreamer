@@ -130,7 +130,7 @@ public class DeveloperUI {
         });
 
         scheduleButton.addActionListener(e -> {
-            Scene scene
+            Scene scene;
             DatePicker picker = new DatePicker();
         });
 
@@ -242,6 +242,7 @@ public class DeveloperUI {
         }
 
         if (promptIfTrue && !f.exists()) {
+            boolean bool = f.mkdir();
             String objButtons[] = {"Yes", "No."};
             int promptResult = JOptionPane.showOptionDialog(null, "Welcome to ChurchStreamer! In order for ChurchStreamer to work" +
                     "correctly, it must restart. Would you like to restart now?", "Welcome!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, objButtons, objButtons[1]);
@@ -250,6 +251,8 @@ public class DeveloperUI {
                 System.exit(0);
             }
         }
+        else
+            return false;
 
         return true;
     }

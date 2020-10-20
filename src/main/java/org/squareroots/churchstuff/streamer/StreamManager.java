@@ -2,13 +2,13 @@ package org.squareroots.churchstuff.streamer;
 
 import com.google.api.services.youtube.model.*;
 import org.squareroots.churchstuff.youtube.live.CreateBroadcast;
-
-import java.io.IOException;
+import org.squareroots.churchstuff.youtube.live.CreateLiveStream;
 
 public class StreamManager {
 
     private CreateBroadcast cb = new CreateBroadcast();
     private ObsHandler handler = new ObsHandler();
+
 
     String title;
     boolean isPublic = false;
@@ -21,7 +21,7 @@ public class StreamManager {
 
     public void StartStreaming()
     {
-        cb.updateYT(new LiveBroadcast().setSnippet(new LiveBroadcastSnippet().setTitle(title)));
+        LiveBroadcast bc = cb.updateYT(new LiveBroadcast().setSnippet(new LiveBroadcastSnippet().setTitle(title)), title);
         handler.startStreaming();
       //  cb.activate();
     }
