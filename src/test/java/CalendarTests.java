@@ -10,15 +10,15 @@ public class CalendarTests {
     public void TestEasterCalculation()
     {
         // should be april fools day 2018
-        EasterCalculator ec2018 = new EasterCalculator(2018);
-        assert (ec2018.getEasterDay() == 1);
+        EasterCalculator ec2018 = new EasterCalculator(2021);
+        assert (ec2018.getEasterDay() == 4);
         assert (ec2018.getEasterMonth() == 4);
     }
 
     @Test
     public void TestAshWednesdayCalculation()
     {
-        int year = 2018;
+        int year = 2021;
         LiturgicalCalendar lc = new LiturgicalCalendar(year);
         int aw = lc.GetAshWednesday();
         GregorianCalendar gc = new GregorianCalendar();
@@ -38,5 +38,15 @@ public class CalendarTests {
         gc.add(GregorianCalendar.DAY_OF_YEAR, thanksgiving);
         System.out.println("Thanksgiving is " + gc.get(GregorianCalendar.MONTH) +  " " + gc.get(GregorianCalendar.DAY_OF_MONTH) + ", on day " + thanksgiving + " of the year." );
 
+    }
+
+    @Test
+    public void TestEpiphany()
+    {
+        int year = 2021;
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.set(year, 1, 8);
+        LiturgicalCalendar lc = new LiturgicalCalendar(year);
+        String day = lc.LookupByDate(1,9);
     }
 }

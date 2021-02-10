@@ -16,26 +16,26 @@ public class YoutubeTests {
         LiturgicalCalendar lc = new LiturgicalCalendar(2018);
         String title = lc.LookupByDate(Calendar.MARCH, 23);
 
-        // This stuff happens when you click "startStreaming"
-        cb.Go(title, false);
-        ObsHandler handler = new ObsHandler();
-        handler.startStreaming();
-        try {
-            cb.WaitForActive();
-            cb.TransitionToLive();
-
-
-            Thread.sleep(30000);
-
-            // This stuff happens when you click "StopStreaming"
-            handler.StopStreaming();
-            cb.TransitionToDone();
-
-            // and now everything's done!
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        // This stuff happens when you click "startStreaming"
+//        cb.Go(title, false);
+//        ObsHandler handler = new ObsHandler();
+//        handler.startStreaming();
+//        try {
+//            cb.WaitForActive();
+//            cb.TransitionToLive();
+//
+//
+//            Thread.sleep(30000);
+//
+//            // This stuff happens when you click "StopStreaming"
+//            handler.StopStreaming();
+//            cb.TransitionToDone();
+//
+//            // and now everything's done!
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 }

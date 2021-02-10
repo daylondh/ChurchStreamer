@@ -130,7 +130,7 @@ public class LiturgicalCalendar {
                 else
                 {
                     // ephiphany
-                    int weekSinceEpiphany = (i-5) / 7;
+                    int weekSinceEpiphany = (i-5) / 7 +1;
                     _entries[i] = Nth(weekSinceEpiphany) + WeekDay(i) + " after Ephiphany";
                 }
             }
