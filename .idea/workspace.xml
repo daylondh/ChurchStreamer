@@ -7,10 +7,8 @@
     <list default="true" id="29ff57b2-6c54-42da-9d11-9e756140eea6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/calendar/LiturgicalCalendar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/calendar/LiturgicalCalendar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/live/CreateBroadcast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/squareroots/churchstuff/youtube/live/CreateBroadcast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/CalendarTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CalendarTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/YoutubeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/YoutubeTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/preferences.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/preferences.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +36,13 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="Streamer" type="f1a62948:ProjectNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Streamer" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -100,8 +104,21 @@
       <recent name="C:\Users\Alex Hooper\Code\ChurchStreamer\src\main\java\org\squareroots\churchstuff\SUI" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CalendarTests.TestEpiphany">
-    <configuration name="ChurchStreamer [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.ChurchStreamer [fatJar]">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.squareroots.churchstuff.Main" />
+      <module name="ChurchStuff.Streamer.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.squareroots.churchstuff.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChurchStreamer [fatJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -112,22 +129,13 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="dependencies" />
+            <option value="fatJar" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
-    </configuration>
-    <configuration name="CalendarTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChurchStuff.Streamer.test" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="CalendarTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration name="CalendarTests.TestAshWednesdayCalculation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChurchStuff.Streamer.test" />
@@ -160,19 +168,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Gradle.ChurchStreamer [dependencies]" />
-      <item itemvalue="JUnit.CalendarTests" />
       <item itemvalue="JUnit.CalendarTests.TestEasterCalculation" />
       <item itemvalue="JUnit.CalendarTests.TestAshWednesdayCalculation" />
       <item itemvalue="JUnit.CalendarTests.TestEpiphany" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Gradle.ChurchStreamer [fatJar]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ChurchStreamer [fatJar]" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.CalendarTests.TestEpiphany" />
         <item itemvalue="JUnit.CalendarTests.TestAshWednesdayCalculation" />
         <item itemvalue="JUnit.CalendarTests.TestEasterCalculation" />
-        <item itemvalue="JUnit.CalendarTests" />
-        <item itemvalue="Gradle.ChurchStreamer [dependencies]" />
       </list>
     </recent_temporary>
   </component>
@@ -203,22 +211,22 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1612918111937">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1613572246102">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612918111937" />
-    <state width="1877" height="348" key="GridCell.Tab.0.center" timestamp="1612918111937">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1613572246102" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1613572246102">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612918111937" />
-    <state width="1877" height="348" key="GridCell.Tab.0.left" timestamp="1612918111937">
+    <state width="1877" height="281" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1613572246102" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1613572246102">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612918111937" />
-    <state width="1877" height="348" key="GridCell.Tab.0.right" timestamp="1612918111937">
+    <state width="1877" height="281" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1613572246102" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1613572246102">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612918111937" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1613572246102" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1612918111937">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -52,7 +52,8 @@ public class CreateBroadcast {
             details.setEnableEmbed(true);
             details.setRecordFromStart(true);
             details.setEnableAutoStart(true);
-            
+            details.set("enableAutoStop", true);
+
             broadcast.setContentDetails(details);
             CreateLiveStream cls = new CreateLiveStream();
             LiveStream ls = cls.Create(youtube);
@@ -65,6 +66,7 @@ public class CreateBroadcast {
             // Add the status object property to the LiveBroadcast object.
             LiveBroadcastStatus status = new LiveBroadcastStatus();
             status.setPrivacyStatus("public");
+            status.set("selfDeclaredMadeForKids", false);
             broadcast.setStatus(status);
 
             YouTube.LiveBroadcasts.Insert liveStreamRequest = youtube.liveBroadcasts().insert("snippet,contentDetails,status", broadcast);
