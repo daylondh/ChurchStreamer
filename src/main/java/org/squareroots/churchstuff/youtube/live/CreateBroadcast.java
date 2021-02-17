@@ -52,6 +52,7 @@ public class CreateBroadcast {
             details.setEnableEmbed(true);
             details.setRecordFromStart(true);
             details.setEnableAutoStart(true);
+            
             broadcast.setContentDetails(details);
             CreateLiveStream cls = new CreateLiveStream();
             LiveStream ls = cls.Create(youtube);
@@ -92,7 +93,7 @@ public class CreateBroadcast {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yy");
         LocalDateTime now = LocalDateTime.now();
         String date = dtf.format(now);
-        return "https://bulletins.churchstreamer.org?t=" String.valueOf(System.currentTimeMillis() * .001) + "&d=" + date;
+        return "https://bulletins.churchstreamer.org?t=" + String.valueOf(System.currentTimeMillis() * .001) + "&d=" + date;
     }
 
     public YouTube getYoutube(){ return youtube;}

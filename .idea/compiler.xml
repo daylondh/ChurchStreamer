@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="ChurchStuff.Streamer" target="1.8" />
       <module name="ChurchStuff.Streamer.main" target="1.8" />
       <module name="ChurchStuff.Streamer.test" target="1.8" />
       <module name="Streamer.main" target="1.8" />
